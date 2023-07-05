@@ -1,0 +1,44 @@
+
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<div class="section">
+    
+    <table class="table mb-0 bg-white" id="Table">
+      <thead class="bg-light">
+        <tr>
+          <th>Firstname</th>
+          <th>Lastname</th>
+          <th>Mobile</th>
+          <th>Mobile2</th>
+          <th>Fax</th>
+          <th>Email</th>
+          <th>Personal Address</th>
+          <th>Rating</th>
+          <th>City</th>
+          <th>State</th>
+          <th>Country</th>
+          <th>Postal Code</th>
+          <th>Company Address</th>
+          <th>Company</th>
+          <th>Designation</th>
+          <th>Work Phone</th>
+          <th>Category</th>
+          <th>Date of Birth</th>
+          <th>Group</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+
+      </tbody>
+    </table>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="{% static 'js/contact.js'%}">
+{% endblock %}
+

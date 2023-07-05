@@ -1,0 +1,41 @@
+
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<div class="section">
+    
+    <table class="table align-middle mb-0 bg-white" id="Table">
+      <thead class="bg-light">
+        <tr>
+          <th>Property Name</th>
+          <th>Property Type</th>
+          <th>Insurance</th>
+          <th>Tenant</th>
+          <th>CMA</th>
+          <th>Operating</th>
+          <th>Investing</th>
+          <th>Annual Rent Increase</th>
+          <th>Lease Start Date</th>
+          <th>Lease End Date</th>
+          <th>Lease Notice Date</th>
+          <th>COAM Agreement Start Date</th>
+          <th>COAM Agreement End Date</th>
+          <th>COAM Agreement Notice Date</th>
+          <th>Insurance Start Date</th>
+          <th>Insurance End Date</th>
+          <th>Insurance Notice Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+      </tbody>
+    </table>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="{% static 'js/property.js'%}">
+{% endblock %}
+

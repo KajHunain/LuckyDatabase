@@ -1,0 +1,32 @@
+
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<div class="section">
+    
+    <table class="table table-hover align-middle mb-0 bg-white" id="Table">
+      {% csrf_token %}
+      <thead class="bg-light">
+        <tr>
+          <th>Project Name</th>
+          <th>Project Type</th>
+          <th>Company</th>
+          <th>Contract Start Date</th>
+          <th>Contract End Date</th>
+          <th>Contract Notice Date</th>
+        </tr>
+      </thead>
+      <tbody>
+
+        
+      </tbody>
+    </table>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="{% static 'js/project.js'%}">
+{% endblock %}
+
