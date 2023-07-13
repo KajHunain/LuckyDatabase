@@ -1,9 +1,6 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from django.urls import reverse
-from rest_framework.authtoken.models import Token
 from rest_framework import generics, viewsets
 from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
@@ -11,16 +8,21 @@ from rest_framework.response import Response
 from rest_framework import status
 from .models import Database, Contact, Company, Project, Property
 from .serializers import DatabaseSerializer, ContactSerializer, CompanySerializer,  PropertySerializer, ProjectSerializer, UserSerializer
-from datetime import date
 from rest_framework.decorators import action
+from django.db.models import Q
 
 @login_required
 def Index(request):
-    print(request.user)
     
-    print(Database.objects.filter(creator=request.user)[0])
-
-    return render(request, "index.html", {})
+    # try : 
+    #     db = []
+    #     for i in Database.objects.filter(creator=request.user):
+    #         db.append(i.database_title)
+        
+    # except: 
+    #     return redirect("createdb")
+    
+    return render(request, "index.html", {"username":request.user})
 
 @login_required
 def contact(request,id):
@@ -46,11 +48,22 @@ def signin(request):
         
     return render(request, "signin.html", {})
 
+def register(request):
+    
+    if request.user.is_active:
+        return redirect("index")
+        
+    return render(request, "register.html", {})
+@login_required
+def createDb(request):
+
+    return render(request, "createdatabase.html", {"username":request.user})
+
 
 class IndexView(APIView):
     def get(self, request):
 
-        print("Index Page", request.user.id)
+        print("Index Page", request.user)
 
         if not self.request.user.is_superuser:
             user = self.request.user
@@ -91,16 +104,24 @@ class IndexView(APIView):
             data_list = [{"username": user.username,},]
             for db in queryset:
             
-                
                 title = db.database_title
                 db_id = db.id
-                creator_db = db.creator.username         
+
+                role = ""
+
+                if db.creator == user:
+                    role = "Creator"
+                elif user in db.editors.all():
+                    role = "Editor"
+
+                # creator_db = db.creator.username         
+                # editor_db = db.editors.all()
 
                 data = {
                     
                     "title": title,
                     "id": db_id,
-                    "creator": creator_db
+                    "role": role
                 }
 
                 data_list.append(data)
@@ -198,21 +219,26 @@ class ContactListApi(generics.ListAPIView):
     serializer_class = ContactSerializer
     queryset = Contact.objects.all()
     
-    def get(self, request, *args, **kwargs):
-        
+    def get_queryset(self):
         if not self.request.user.is_superuser:
-            
             db_id = self.kwargs.get("db")
-            db = Database.objects.filter(id=db_id, creator = request.user)
-            queryset = self.queryset.filter(database__in=[db])
-            
+            db = Database.objects.filter(Q(id=db_id) & (Q(creator=self.request.user) | Q(editors__in=[self.request.user])))
+
+            queryset = self.queryset.filter(database__in=db)
         else:
-            print("superuserentered")
             db_id = self.kwargs.get("db")
             queryset = self.queryset.filter(database__in=[db_id])
+            
+        return queryset
 
-        serializer = self.get_serializer(queryset, many=True)
-        return Response(serializer.data,status=status.HTTP_200_OK)
+    def get(self, request, *args, **kwargs):
+        queryset = self.get_queryset()
+        
+        if queryset.exists():
+            serializer = self.get_serializer(queryset, many=True)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        else:
+            return Response([], status=status.HTTP_200_OK)
 
 class ContactCreateApi(generics.CreateAPIView):
     
@@ -222,9 +248,10 @@ class ContactCreateApi(generics.CreateAPIView):
     def create(self, request, *args, **kwargs):
 
         db_id = self.kwargs.get("db")
-        request.data["database"] = db_id
+        data = request.data.copy()
+        data.update({"database": db_id})
 
-        serializer = self.serializer_class(data=request.data)
+        serializer = self.serializer_class(data=data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
         
@@ -259,11 +286,9 @@ class ContactUpdateApi(generics.UpdateAPIView):
     serializer_class = ContactSerializer
 
     def update(self, request, *args, **kwargs):
-        print(request.user)
 
         instance = self.get_object()
         database = instance.database
-        print(database)
 
         if not (database.creator == request.user or database.editor == request.user):
             return Response({'message': 'Permission denied.'}, status=status.HTTP_403_FORBIDDEN)
@@ -285,21 +310,28 @@ class CompanyListApi(generics.ListAPIView):
     serializer_class = CompanySerializer
     queryset = Company.objects.all()
     
-    def get(self, request, *args, **kwargs):
-        
+    def get_queryset(self):
         if not self.request.user.is_superuser:
-            
             db_id = self.kwargs.get("db")
-            db = Database.objects.filter(id=db_id, creator = request.user)
-            queryset = self.queryset.filter(database__in=[db])
+            db = Database.objects.filter(
+                Q(id=db_id) & (
+                Q(creator=self.request.user) | Q(editors__in=[self.request.user])))
             
+            queryset = self.queryset.filter(database__in=db)
         else:
-            print("superuserentered")
             db_id = self.kwargs.get("db")
             queryset = self.queryset.filter(database__in=[db_id])
+            
+        return queryset
 
-        serializer = self.get_serializer(queryset, many=True)
-        return Response(serializer.data,status=status.HTTP_200_OK)
+    def get(self, request, *args, **kwargs):
+        queryset = self.get_queryset()
+        
+        if queryset.exists():
+            serializer = self.get_serializer(queryset, many=True)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        else:
+            return Response([], status=status.HTTP_200_OK)
 
 class CompanyCreateApi(generics.CreateAPIView):
     
@@ -309,9 +341,10 @@ class CompanyCreateApi(generics.CreateAPIView):
     def create(self, request, *args, **kwargs):
 
         db_id = self.kwargs.get("db")
-        request.data["database"] = db_id
+        data = request.data.copy()
+        data.update({"database": db_id})
 
-        serializer = self.serializer_class(data=request.data)
+        serializer = self.serializer_class(data=data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
         
@@ -346,11 +379,9 @@ class CompanyUpdateApi(generics.UpdateAPIView):
     serializer_class = CompanySerializer
 
     def update(self, request, *args, **kwargs):
-        print(request.user)
 
         instance = self.get_object()
         database = instance.database
-        print(database)
 
         if not (database.creator == request.user or database.editor == request.user):
             return Response({'message': 'Permission denied.'}, status=status.HTTP_403_FORBIDDEN)
@@ -367,26 +398,52 @@ class CompanyUpdateApi(generics.UpdateAPIView):
         return Response(response_data, status=status.HTTP_200_OK)
 
 
+# class PropertyListApi(generics.ListAPIView):
+#     permission_classes = [IsAuthenticated]
+#     serializer_class = PropertySerializer
+#     queryset = Property.objects.all()
+    
+#     def get(self, request, *args, **kwargs):
+        
+#         if not self.request.user.is_superuser:
+            
+#             db_id = self.kwargs.get("db")
+#             db = Database.objects.filter(id=db_id, creator = request.user)
+#             queryset = self.queryset.filter(database__in=[db])
+            
+#         else:
+#             print("superuserentered")
+#             db_id = self.kwargs.get("db")
+#             queryset = self.queryset.filter(database__in=[db_id])
+
+#         serializer = self.get_serializer(queryset, many=True)
+#         return Response(serializer.data,status=status.HTTP_200_OK)
+
 class PropertyListApi(generics.ListAPIView):
     permission_classes = [IsAuthenticated]
     serializer_class = PropertySerializer
     queryset = Property.objects.all()
-    
-    def get(self, request, *args, **kwargs):
-        
+
+    def get_queryset(self):
         if not self.request.user.is_superuser:
-            
             db_id = self.kwargs.get("db")
-            db = Database.objects.filter(id=db_id, creator = request.user)
-            queryset = self.queryset.filter(database__in=[db])
-            
+            db = Database.objects.filter(Q(id=db_id) & 
+                                         (Q(creator=self.request.user) | Q(editors__in=[self.request.user])))
+            queryset = self.queryset.filter(database__in=db)
         else:
-            print("superuserentered")
             db_id = self.kwargs.get("db")
             queryset = self.queryset.filter(database__in=[db_id])
+            
+        return queryset
 
-        serializer = self.get_serializer(queryset, many=True)
-        return Response(serializer.data,status=status.HTTP_200_OK)
+    def get(self, request, *args, **kwargs):
+        queryset = self.get_queryset()
+        
+        if queryset.exists():
+            serializer = self.get_serializer(queryset, many=True)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        else:
+            return Response([], status=status.HTTP_200_OK)
 
 class PropertyCreateApi(generics.CreateAPIView):
     
@@ -396,9 +453,10 @@ class PropertyCreateApi(generics.CreateAPIView):
     def create(self, request, *args, **kwargs):
 
         db_id = self.kwargs.get("db")
-        request.data["database"] = db_id
+        data = request.data.copy()
+        data.update({"database": db_id})
 
-        serializer = self.serializer_class(data=request.data)
+        serializer = self.serializer_class(data=data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
         
@@ -433,11 +491,9 @@ class PropertyUpdateApi(generics.UpdateAPIView):
     serializer_class = PropertySerializer
 
     def update(self, request, *args, **kwargs):
-        print(request.user)
 
         instance = self.get_object()
         database = instance.database
-        print(database)
 
         if not (database.creator == request.user or database.editor == request.user):
             return Response({'message': 'Permission denied.'}, status=status.HTTP_403_FORBIDDEN)
@@ -459,21 +515,27 @@ class ProjectListApi(generics.ListAPIView):
     serializer_class = ProjectSerializer
     queryset = Project.objects.all()
     
-    def get(self, request, *args, **kwargs):
-        
+    def get_queryset(self):
         if not self.request.user.is_superuser:
-            
             db_id = self.kwargs.get("db")
-            db = Database.objects.filter(id=db_id, creator = request.user)
-            queryset = self.queryset.filter(database__in=[db])
+            db = Database.objects.filter(Q(id=db_id) & 
+                                         (Q(creator=self.request.user) | Q(editors__in=[self.request.user])))
             
+            queryset = self.queryset.filter(database__in=db)
         else:
-            print("superuserentered")
             db_id = self.kwargs.get("db")
             queryset = self.queryset.filter(database__in=[db_id])
+            
+        return queryset
 
-        serializer = self.get_serializer(queryset, many=True)
-        return Response(serializer.data,status=status.HTTP_200_OK)
+    def get(self, request, *args, **kwargs):
+        queryset = self.get_queryset()
+        
+        if queryset.exists():
+            serializer = self.get_serializer(queryset, many=True)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        else:
+            return Response([], status=status.HTTP_200_OK)
 
 class ProjectCreateApi(generics.CreateAPIView):
     
@@ -483,9 +545,10 @@ class ProjectCreateApi(generics.CreateAPIView):
     def create(self, request, *args, **kwargs):
 
         db_id = self.kwargs.get("db")
-        request.data["database"] = db_id
+        data = request.data.copy()
+        data.update({"database": db_id})
 
-        serializer = self.serializer_class(data=request.data)
+        serializer = self.serializer_class(data=data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
         
@@ -520,11 +583,9 @@ class ProjectUpdateApi(generics.UpdateAPIView):
     serializer_class = ProjectSerializer
 
     def update(self, request, *args, **kwargs):
-        print(request.user)
 
         instance = self.get_object()
         database = instance.database
-        print(database)
 
         if not (database.creator == request.user or database.editor == request.user):
             return Response({'message': 'Permission denied.'}, status=status.HTTP_403_FORBIDDEN)
@@ -549,10 +610,9 @@ class SigninView(APIView):
         password = request.data.get('password')
 
         user = authenticate(request, username=username, password=password)
-        print("Signin Page: ",user)
 
         if user is not None:
-
+            print( user,"Signed In")
             login(request, user)
             return Response({'message': 'Signed in successfully'},status=status.HTTP_200_OK)
 
@@ -569,10 +629,12 @@ class CreateUserView(APIView):
         user_serializer = UserSerializer(data=request.data)
 
         if user_serializer.is_valid():
-            user = user_serializer.save()
 
+            user = user_serializer.save()
+            
             username = user_serializer.validated_data['username']
             password = user_serializer.validated_data['password']
+            
             user.set_password(password)  # Set the password and hash it
             user.save()
 
@@ -581,7 +643,7 @@ class CreateUserView(APIView):
             if user is not None:
                 login(request, user)
 
-                return redirect(reverse('createdb'))
+                return Response({"message:":"User created and loged in"},status=status.HTTP_201_CREATED)
                 # token, _ = Token.objects.get_or_create(user=user)
                 # return Response({'token': token.key}, status=status.HTTP_201_CREATED)
 
@@ -591,20 +653,43 @@ class CreateUserView(APIView):
             errors.update(user_serializer.errors)
             return Response(errors, status=status.HTTP_400_BAD_REQUEST)
         
-class CreateDatabaseView(APIView):
+class DatabaseCreateView(APIView):
     permission_classes = [IsAuthenticated]
 
     def post(self, request):
         data = request.data.copy()
         data['creator'] = request.user.id
-
         database_serializer = DatabaseSerializer(data=data)
 
         if database_serializer.is_valid():
             database = database_serializer.save()
 
-            return redirect(reverse('index'))
+            return Response({'message': 'Database created successfully'}, status=status.HTTP_201_CREATED)
         else:
             errors = {}
             errors.update(database_serializer.errors)
             return Response(errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class DatabaseDeleteApi(generics.DestroyAPIView):
+    
+    permission_classes = [IsAuthenticated]
+    queryset = Database.objects.all()
+    serializer_class = DatabaseSerializer
+
+    def destroy(self, request, *args, **kwargs):
+
+        instance = self.get_object()
+
+        if not (instance.creator == request.user ):
+            return Response({'message': 'Permission denied. User role is not permitted to delete the item'}, 
+                            status=status.HTTP_403_FORBIDDEN)
+        
+        self.perform_destroy(instance)
+
+        response_data = {
+            'message': 'Item deleted successfully',
+            'deleted_item_id': instance.id
+        }
+
+        return Response(response_data, status=status.HTTP_204_NO_CONTENT)

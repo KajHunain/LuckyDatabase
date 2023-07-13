@@ -1,7 +1,18 @@
 $(document).ready(function() {
 
+  $("#addbtn").click(function() {
+    $(".table").toggle();
+    $(".form").toggle();
+  });
 
-  $('#pagename').text('Property');
+   $(".cross").click(function() {
+    $(".form").hide();
+    $(".table").show();
+  });
+
+  $(".button").show();
+  
+  $('#pagename').text('Project');
   var currentUrl = window.location.href;
   var regex = /http:\/\/127\.0\.0\.1:8000\/(\d+)\/([^/]+)\/?/;
   var db_id = currentUrl.match(regex)[1];
@@ -20,45 +31,46 @@ $(document).ready(function() {
     }
     return cookieValue;
   }
-
-  var initialData = [];
-  var updateData = [];
-  var createData = [];
-
+  
   $.ajax({
-    url: '../api/'+ db_id +'/property',
+    url: '../api/'+ db_id +'/project/',
     type: 'GET',
     dataType: 'json',
     success: function(data) {
- 
+
+      var tbody = $('table tbody');
+
       var tbody = $('table tbody');
 
       for (var i = 0; i < data.length; i++) {
-        var property = data[i];
+        var project = data[i];
 
-        var newRow = $('<tr>').attr('id', property.id);
+        var newRow = $('<tr>').attr('id', project.id);
+
+        var deleteButton = $('<i>').addClass("fa-solid fa-circle-xmark fa-l dlt_btn");
+        newRow.append(deleteButton);
+
         var theadings = $('#Table thead');
         
-        theadings.find('th').each(function (index) {
+        theadings.find('th:not(:first-child)').each(function (index) {
 
           var columnName = $(this).text().trim().toLowerCase().replace(/ /g, "_");
-          var cellValue = property[columnName];
+          var cellValue = project[columnName];
           var newCell = $('<td>').text(cellValue);
 
           newRow.append(newCell);
         });
-
+        
         tbody.append(newRow);
-        initialData.push(property);
-        }
 
+        }  
       },
     error: function(xhr, status, error) {
-
+      
       console.log('Error:', error);
     }
   });
-  console.log(initialData);
+
   var original_value = '';
 
   $(document).on('click', '#Table td', function() {
@@ -71,32 +83,17 @@ $(document).ready(function() {
     }
   });
 
+
   $(document).on('focusout', '.edit-input', function() {
     var cell = $(this).closest('td');
     cell.removeClass('editing');
     var currentValue = cell.find('input').val().trim();
     cell.text(currentValue);
-    var rowId = Number(cell.closest('tr').attr('id'));
 
-    if (original_value !== currentValue && !(isNaN(rowId)) && !updateData.includes(rowId)) {
-      
-      updateData.push(rowId);
-      console.log(updateData);
+    var row = cell.closest('tr');
 
-      console.log("original_value:"+ original_value + " currentValue:"+ currentValue);
+    if (currentValue !== original_value) {
 
-      $('#update').show();
-    
-    }
-  });
-
-
-  $(document).on('click', '#update', function() {
-
-    var updatedData = [];
-
-    $('#Table tbody tr').each(function() {
-      var row = $(this);
       var rowData = {};
 
       rowData.id = Number(row.attr('id'));
@@ -104,27 +101,16 @@ $(document).ready(function() {
 
       row.find('td').each(function(index) {
         var cellValue = $(this).text().trim();
-        var columnName = $('#Table thead th:eq(' + index + ')').text().trim();
+        var columnName = $('#Table thead th:eq(' + (index+1) + ')').text().trim();
         columnName = columnName.toLowerCase().replaceAll(" ", "_");
 
         rowData[columnName] = cellValue;
       });
 
-      updatedData.push(rowData);
-    });
-
-    console.log(updatedData);
-
-    for (var i=0; i < updatedData.length; i++){
-
-      if (updatedData[i].id === null ){
-
-      }
-      
       $.ajax({
-        url: '../api/'+ db_id +'/propertyupdate/'+ updatedData[i].id+'/',
+        url: '../api/'+ db_id +'/projectupdate/'+ rowData.id+'/',
         type: 'PUT',
-        data: JSON.stringify(updatedData[i]),
+        data: JSON.stringify(rowData),
         contentType: 'application/json',
         headers: {
           'X-CSRFToken': getCookie('csrftoken')
@@ -133,40 +119,67 @@ $(document).ready(function() {
         success: function(response) {
 
           console.log('Data updated successfully');
-          $('#update').hide();
+
         },
         error: function(xhr, status, error) {
 
           console.log('Error:', error);
         }
       });
+    
     }
   });
 
-  $(document).on('click', '#create', function() {
+ $('#submit').click(function(event) {
+    event.preventDefault();
 
-    var table = $('#Table');
-    var lastRow = table.find('tbody tr:last');
-
-    var isEmpty = lastRow.find('td').filter(function() {
-      return $(this).text().trim() !== '';
-    }).length === 0;
+    var formData = {
+      project_name: $('#project_name').val(),
+      project_type: $('#project_type').val(),
+      company: $('#company').val(),
+      contract_start_date: $('#contract_start_date').val(),
+      contract_end_date: $('#contract_end_date').val(),
+      contract_notice_date: $('#contract_notice_date').val()
+    };
     
-    if (!isEmpty) {
+    $.ajax({
+      url: '../api/'+ db_id +'/projectcreate/',
+      type: 'POST',
+      data: formData,
+      dataType: 'json',
+      headers: {
+          'X-CSRFToken': getCookie('csrftoken')
+        },
+      success: function(response) {
+        location.reload(true);
+        console.log(response);
+      },
+      error: function(xhr, status, error) {
+        console.log('Error:', error);
+      }
+    });
+  });
 
-      // createData.push();
-      console.log(table.find('tbody tr').length);
-      var newRow = $('<tr>');
-      console.log("new row added")
+  $(document).on('click', '.dlt_btn', function() {
 
-      table.find('thead th').each(function() {
-        newRow.append($('<td>'));
-      });
+    var id =$(this).closest('tr').attr('id');
 
-      table.find('tbody').append(newRow);
-    }
+    $.ajax({
+      url: '../api/'+ db_id +'/projectdelete/'+id+'/',
+      type: 'DELETE',
+      headers: {
+          'X-CSRFToken': getCookie('csrftoken')
+        },
+      success: function(response) {
+        location.reload(true);
+        console.log(response);
+      },
+      error: function(xhr, status, error) {
+        console.log('Error:', error);
+      }
+    });
 
+    
   });
 
 });
-

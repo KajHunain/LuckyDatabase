@@ -4,38 +4,154 @@
 {% load static %}
 
 {% block content %}
+<link rel="stylesheet" href="{% static 'css/table.css' %}">
+<div class="section pt-3">
+    <section>
 
-<div class="section">
-    
-    <table class="table align-middle mb-0 bg-white" id="Table">
-      <thead class="bg-light">
-        <tr>
-          <th>Company Name</th>
-          <th>DBA</th>
-          <th>Group Name</th>
-          <th>Category</th>
-          <th>Email</th>
-          <th>Responsible</th>
-          <th>Phone</th>
-          <th>Partners</th>
-          <th>Fax</th>
-          <th>State Tax Number</th>
-          <th>Food Lic Number</th>
-          <th>Store Number</th>
-          <th>EIN Number</th>
-          <th>Manager Name</th>
-          <th>Address Line</th>
-          <th>City</th>
-          <th>Country</th>
-          <th>Mailing Address</th>
-          <th>Owner</th>
-        </tr>
-      </thead>
-      <tbody>
+        <div class="table">
+            <table class="" id="Table" cellpadding="0" cellspacing="0" border="0">
+                <thead class="tbl-header">
+                  <tr>
+                    <th></th>
+                    <th>Company Name</th>
+                    <th>DBA</th>
+                    <th>Group Name</th>
+                    <th>Category</th>
+                    <th>Email</th>
+                    <th>Responsible</th>
+                    <th>Phone</th>
+                    <th>Partners</th>
+                    <th>Fax</th>
+                    <th>State Tax Number</th>
+                    <th>Food Lic Number</th>
+                    <th>Store Number</th>
+                    <th>EIN Number</th>
+                    <th>Manager Name</th>
+                    <th>Address Line</th>
+                    <th>City</th>
+                    <th>Country</th>
+                    <th>Mailing Address</th>
+                    <th>Owner</th>
+                  </tr>
+                </thead>
+                <tbody class="tbl-content">
+
+                  
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="form">
+          <form class="container mt-3 p-4" id="company_form">
+            <div class="cross"><i class="fa-solid fa-circle-xmark fa-l"></i></div>
+
+            <div class="form-row">
+              <div class="form-group col-md-4">
+                <label for="company_name">Company Name</label>
+                <input type="text" class="form-control" id="company_name" required>
+              </div>
+              <div class="form-group col-md-4">
+                <label for="dba">DBA</label>
+                <input type="text" class="form-control" id="dba" required>
+              </div>
+              <div class="form-group col-md-4">
+                <label for="group_name">Group Name</label>
+                <input type="text" class="form-control" id="group_name" required>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group col-md-4">
+                <label for="category">Category</label>
+                <input type="text" class="form-control" id="category" required>
+              </div>
+              <div class="form-group col-md-4">
+                <label for="email">Email</label>
+                <input type="email" class="form-control" id="email" required>
+              </div>
+              <div class="form-group col-md-4">
+                <label for="responsible">Responsible</label>
+                <input type="text" class="form-control" id="responsible" required>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group col-md-4">
+                <label for="phone">Phone</label>
+                <input type="tel" class="form-control" id="phone" required>
+              </div>
+              <div class="form-group col-md-4">
+                <label for="partners">Partners</label>
+                <input type="text" class="form-control" id="partners">
+              </div>
+              <div class="form-group col-md-4">
+                <label for="fax">Fax</label>
+                <input type="tel" class="form-control" id="fax">
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group col-md-4">
+                <label for="state_tax_number">State Tax Number</label>
+                <input type="text" class="form-control" id="state_tax_number">
+              </div>
+              <div class="form-group col-md-4">
+                <label for="food_lic_number">Food Lic Number</label>
+                <input type="text" class="form-control" id="food_lic_number">
+              </div>
+              <div class="form-group col-md-4">
+                <label for="store_number">Store Number</label>
+                <input type="text" class="form-control" id="store_number">
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group col-md-4">
+                <label for="ein_number">EIN Number</label>
+                <input type="text" class="form-control" id="ein_number">
+              </div>
+              <div class="form-group col-md-4">
+                <label for="manager_name">Manager Name</label>
+                <input type="text" class="form-control" id="manager_name">
+              </div>
+              <div class="form-group col-md-4">
+                <label for="address_line">Address Line</label>
+                <input type="text" class="form-control" id="address_line" required>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group col-md-4">
+                <label for="city">City</label>
+                <input type="text" class="form-control" id="city" required>
+              </div>
+              <div class="form-group col-md-4">
+                <label for="country">Country</label>
+                <input type="text" class="form-control" id="country" required>
+              </div>
+              <div class="form-group col-md-4">
+                <label for="mailing_address">Mailing Address</label>
+                <input type="text" class="form-control" id="mailing_address">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="owner">Owner</label>
+              <input type="text" class="form-control" id="owner">
+            </div>
+
+            <div class="form-row">
+              <div class="form-group col-md-12">
+                <button type="submit" class="btn btn-primary col-md-12" id="submit">Submit</button>
+                </div>
+              </div>
+            </div>
+            
+          </form>
+        </div>
 
         
-      </tbody>
-    </table>
+    </section>
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>

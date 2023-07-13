@@ -1,5 +1,0 @@
-requirments
-
-pip install django
-pip install mysql-server
-pip install djangorestframework

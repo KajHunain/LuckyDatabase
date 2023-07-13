@@ -2,8 +2,18 @@
 $(document).ready(function(){
 
     
-  $(".hamburger").click(function() {
+  $("#ham1").click(function() {
     $("body").toggleClass("active");
+    $("#ham2").toggle();
+  });
+
+   $("#ham2").click(function() {
+    $("body").toggleClass("active");
+    $("#ham2").toggle();
+  });
+
+  $("#more").click(function() {
+    $(".logoutclass").toggle();
   });
 
   $.ajax({
@@ -12,9 +22,6 @@ $(document).ready(function(){
     dataType: 'json',
     success: function(data) {
 
-
-
-      console.log(data);  
       $('#username').text((data[0].username).toUpperCase())
 
       var ul = $('.databases');

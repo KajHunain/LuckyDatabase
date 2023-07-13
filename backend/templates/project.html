@@ -4,26 +4,85 @@
 {% load static %}
 
 {% block content %}
+<link rel="stylesheet" href="{% static 'css/table.css' %}">
 
-<div class="section">
+<div class="section pt-3">
+    <section>
+
+        <div class="table">
     
-    <table class="table table-hover align-middle mb-0 bg-white" id="Table">
-      {% csrf_token %}
-      <thead class="bg-light">
-        <tr>
-          <th>Project Name</th>
-          <th>Project Type</th>
-          <th>Company</th>
-          <th>Contract Start Date</th>
-          <th>Contract End Date</th>
-          <th>Contract Notice Date</th>
-        </tr>
-      </thead>
-      <tbody>
+            <table class="" id="Table" cellpadding="0" cellspacing="15" border="0">
+
+            {% csrf_token %}
+
+                <thead class="tbl-header">
+                    <tr>
+                        <th></th>
+                        <th>Project Name</th>
+                        <th>Project Type</th>
+                        <th>Company</th>
+                        <th>Contract Start Date</th>
+                        <th>Contract End Date</th>
+                        <th>Contract Notice Date</th>
+                    </tr>
+                </thead>
+                <tbody class="tbl-content">
+
+                  
+                </tbody>
+            </table>
+        </div>
+
+        <div class="form">
+          <form class="container mt-3 p-4" id="company_form">
+            <div class="cross"><i class="fa-solid fa-circle-xmark fa-l"></i></div>
+
+                <div class="form-row">
+                  <div class="form-group col-md-6">
+                    <label for="project_name">Project Name</label>
+                    <input type="text" class="form-control" id="project_name" required>
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label for="project_type">Project Type</label>
+                    <input type="text" class="form-control" id="project_type" required>
+                  </div>
+                </div>
+
+                <div class="form-row">
+                  <div class="form-group col-md-6">
+                    <label for="company">Company</label>
+                    <input type="text" class="form-control" id="company" required>
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label for="contract_start_date">Contract Start Date</label>
+                    <input type="date" class="form-control" id="contract_start_date" required>
+                  </div>
+                </div>
+
+                <div class="form-row">
+                  <div class="form-group col-md-6">
+                    <label for="contract_end_date">Contract End Date</label>
+                    <input type="date" class="form-control" id="contract_end_date" required>
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label for="contract_notice_date">Contract Notice Date</label>
+                    <input type="date" class="form-control" id="contract_notice_date" required>
+                  </div>
+                </div>
+                <div>
+                
+                <div class="form-row">
+                  <div class="form-group col-md-12">
+                    <button type="submit" class="btn btn-primary col-md-12" id="submit">Submit</button>
+                    </div>
+                  </div>
+                </div>
+
+            </form>
+        </div>
 
         
-      </tbody>
-    </table>
+    </section>
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>

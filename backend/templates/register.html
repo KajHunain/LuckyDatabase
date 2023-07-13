@@ -19,19 +19,22 @@
 		<div class="container-login100" style="background-image: url('{% static 'images/bg-01.jpg' %}');">
 			<div class="wrap-login100">
 
-				<form class="login100-form validate-form" id="signin-form">
+				<form class="login100-form validate-form" id="register-form">
 					{% csrf_token %}
 						<i class="zmdi zmdi-landscape"></i>
 					
 
-					<span class="login100-form-title p-b-30 p-t-27">
-						Log in
+					<span class="login100-form-title p-b-34 p-t-27">
+						Register
 					</span>
-
-					<span class="text-center" id="error"></span>
 
 					<div class="wrap-input100 validate-input" data-validate = "Enter username">
 						<input class="input100" type="text" name="username" placeholder="Username" id="username">
+						
+					</div>
+
+					<div class="wrap-input100 validate-input" data-validate = "Enter email">
+						<input class="input100" type="email" name="email" placeholder="Email" id="email">
 						
 					</div>
 
@@ -40,22 +43,9 @@
 
 					</div>
 
-<!-- 					<div class="contact100-form-checkbox">
-						<input class="input-checkbox100" id="ckb1" type="checkbox" name="remember-me">
-						<label class="label-checkbox100" for="ckb1">
-							Remember me
-						</label>
-					</div> -->
-
 					<div class="container-login100-form-btn">
 						<input class="login100-form-btn" type="submit" value="Sign In">
 					</div>
-
-					<div class="text-center p-t-40">
-						<div>Don't have an account? 
-						<a class="txt1" href="register">Register</a></div>
-					</div>
-
 				</form>
 
 			</div>
@@ -63,10 +53,8 @@
 	</div>
 	
 
-	<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>	 -->
-	<script src="{% static 'js/jquery.js'%}"></script>
-	<script src="{% static 'js/signin.js'%}"></script>	
-
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>	
+	<script src="{% static 'js/register.js'%}"></script>	
 
 </body>
 </html>

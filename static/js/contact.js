@@ -1,5 +1,16 @@
 $(document).ready(function() {
 
+  $("#addbtn").click(function() {
+    $(".table").toggle();
+    $(".form").toggle();
+  });
+
+   $(".cross").click(function() {
+    $(".form").hide();
+    $(".table").show();
+  });
+
+  $(".button").show();
 
   $('#pagename').text('Contact');
   var currentUrl = window.location.href;
@@ -33,10 +44,12 @@ $(document).ready(function() {
         var contact = data[i];
 
         var newRow = $('<tr>').attr('id', contact.id);
+        var deleteButton = $('<i>').addClass("fa-solid fa-circle-xmark fa-l dlt_btn");
+        newRow.append(deleteButton);
 
         var theadings = $('#Table thead');
         
-        theadings.find('th').each(function (index) {
+        theadings.find('th:not(:first-child)').each(function (index) {
 
           var columnName = $(this).text().trim().toLowerCase().replace(/ /g, "_");
           var cellValue = contact[columnName];
@@ -73,21 +86,10 @@ $(document).ready(function() {
     var currentValue = cell.find('input').val().trim();
     cell.text(currentValue);
 
+    var row = cell.closest('tr');
 
     if (original_value !== currentValue) {
-      console.log("original_value:"+ original_value + " currentValue:"+ currentValue);
-      $('#update').show();
-    
-    }
-  });
-
-
-  $(document).on('click', '#update', function() {
-
-    var updatedData = [];
-
-    $('#Table tbody tr').each(function() {
-      var row = $(this);
+      
       var rowData = {};
 
       rowData.id = Number(row.attr('id'));
@@ -95,22 +97,16 @@ $(document).ready(function() {
 
       row.find('td').each(function(index) {
         var cellValue = $(this).text().trim();
-        var columnName = $('#Table thead th:eq(' + index + ')').text().trim();
+        var columnName = $('#Table thead th:eq(' + (index+1) + ')').text().trim();
         columnName = columnName.toLowerCase().replaceAll(" ", "_");
 
         rowData[columnName] = cellValue;
       });
 
-      updatedData.push(rowData);
-    });
-
-
-    for (var i=0; i < updatedData.length; i++){
-      
       $.ajax({
-        url: '../api/'+ db_id +'/contactupdate/'+ updatedData[i].id+'/',
+        url: '../api/'+ db_id +'/contactupdate/'+ rowData.id+'/',
         type: 'PUT',
-        data: JSON.stringify(updatedData[i]),
+        data: JSON.stringify(rowData),
         contentType: 'application/json',
         headers: {
           'X-CSRFToken': getCookie('csrftoken')
@@ -119,31 +115,86 @@ $(document).ready(function() {
         success: function(response) {
 
           console.log('Data updated successfully');
-          $('#update').hide();
+
         },
         error: function(xhr, status, error) {
 
           console.log('Error:', error);
         }
       });
+
+    
     }
   });
 
-  $(document).on('click', '#create', function() {
 
-    var table = $('#Table');
-    var lastRow = table.find('tbody tr:last');
+  $('#submit').click(function(event) {
+    event.preventDefault();
 
-    var newRow = $('<tr>');
-    console.log("new row added")
+    var formData = {
+      firstname: $('#firstname').val(),
+      lastname: $('#lastname').val(),
+      mobile: $('#mobile').val(),
+      mobile2: $('#mobile2').val(),
+      fax: $('#fax').val(),
+      email: $('#email').val(),
+      personal_address: $('#personal_address').val(),
+      rating: $('#rating').val(),
+      city: $('#city').val(),
+      state: $('#state').val(),
+      country: $('#country').val(),
+      postal_code: $('#postal_code').val(),
+      company_address: $('#company_address').val(),
+      company: $('#company').val(),
+      designation: $('#designation').val(),
+      work_phone: $('#work_phone').val(),
+      category: $('#category').val(),
+      date_of_birth: $('#date_of_birth').val(),
+      group: $('#group').val(),
+      notes: $('#notes').val()
+    };
+    
+    $.ajax({
+      url: '../api/'+ db_id +'/contactcreate/',
+      type: 'POST',
+      data: formData,
+      dataType: 'json',
+      headers: {
+          'X-CSRFToken': getCookie('csrftoken')
+        },
+      success: function(response) {
+        location.reload(true);
+        console.log(response);
+      },
+      error: function(xhr, status, error) {
+        console.log('Error:', error);
+      }
 
-    table.find('thead th').each(function() {
-      newRow.append($('<td>'));
+    });
+    
+  });
+
+  $(document).on('click', '.dlt_btn', function() {
+
+    var id = $(this).closest('tr').attr('id');
+
+    $.ajax({
+      url: '../api/'+ db_id +'/contactdelete/'+id+'/',
+      type: 'DELETE',
+      headers: {
+          'X-CSRFToken': getCookie('csrftoken')
+        },
+      success: function(response) {
+        location.reload(true);
+        console.log(response);
+      },
+      error: function(xhr, status, error) {
+        console.log('Error:', error);
+      }
     });
 
-    table.find('tbody').append(newRow);
-
   });
+
 
 });
 

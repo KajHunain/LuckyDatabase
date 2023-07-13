@@ -4,40 +4,161 @@
 {% load static %}
 
 {% block content %}
+<link rel="stylesheet" href="{% static 'css/table.css' %}">
 
-<div class="section">
-    
-    <table class="table mb-0 bg-white" id="Table">
-      <thead class="bg-light">
-        <tr>
-          <th>Firstname</th>
-          <th>Lastname</th>
-          <th>Mobile</th>
-          <th>Mobile2</th>
-          <th>Fax</th>
-          <th>Email</th>
-          <th>Personal Address</th>
-          <th>Rating</th>
-          <th>City</th>
-          <th>State</th>
-          <th>Country</th>
-          <th>Postal Code</th>
-          <th>Company Address</th>
-          <th>Company</th>
-          <th>Designation</th>
-          <th>Work Phone</th>
-          <th>Category</th>
-          <th>Date of Birth</th>
-          <th>Group</th>
-          <th>Notes</th>
-        </tr>
-      </thead>
-      <tbody>
+<div class="section pt-3">
+    <section>
 
-      </tbody>
-    </table>
+        <div class="table">
+            <table class="" id="Table"  cellpadding="0" cellspacing="15" border="0">
+              <thead class="tbl-header">
+                <tr>
+                  <th></th>
+                  <th>Firstname</th>
+                  <th>Lastname</th>
+                  <th>Mobile</th>
+                  <th>Mobile2</th>
+                  <th>Fax</th>
+                  <th>Email</th>
+                  <th>Personal Address</th>
+                  <th>Rating</th>
+                  <th>City</th>
+                  <th>State</th>
+                  <th>Country</th>
+                  <th>Postal Code</th>
+                  <th>Company Address</th>
+                  <th>Company</th>
+                  <th>Designation</th>
+                  <th>Work Phone</th>
+                  <th>Category</th>
+                  <th>Date of Birth</th>
+                  <th>Group</th>
+                  <th>Notes</th>
+                </tr>
+              </thead>
+              <tbody class="tbl-content">
+
+              </tbody>
+
+            </table>
+        </div>
+
+        <div class="form">
+          <form class="container mt-3 p-4" id="contact_form">
+            <div class="cross"><i class="fa-solid fa-circle-xmark fa-l"></i></div>
+
+            <div class="form-row">
+              <div class="form-group col-md-4">
+                <label for="firstname">Firstname</label>
+                <input type="text" class="form-control" id="firstname" required>
+              </div>
+              <div class="form-group col-md-4">
+                <label for="lastname">Lastname</label>
+                <input type="text" class="form-control" id="lastname" required>
+              </div>
+              <div class="form-group col-md-4">
+                <label for="mobile">Mobile</label>
+                <input type="tel" class="form-control" id="mobile" required>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group col-md-4">
+                <label for="mobile2">Mobile2</label>
+                <input type="tel" class="form-control" id="mobile2">
+              </div>
+              <div class="form-group col-md-4">
+                <label for="fax">Fax</label>
+                <input type="tel" class="form-control" id="fax">
+              </div>
+              <div class="form-group col-md-4">
+                <label for="email">Email</label>
+                <input type="email" class="form-control" id="email" required>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="personal_address">Personal Address</label>
+              <input type="text" class="form-control" id="personal_address" required>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group col-md-4">
+                <label for="rating">Rating</label>
+                <input type="number" class="form-control" id="rating" required>
+              </div>
+              <div class="form-group col-md-4">
+                <label for="city">City</label>
+                <input type="text" class="form-control" id="city" required>
+              </div>
+              <div class="form-group col-md-4">
+                <label for="state">State</label>
+                <input type="text" class="form-control" id="state" required>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group col-md-4">
+                <label for="country">Country</label>
+                <input type="text" class="form-control" id="country" required>
+              </div>
+              <div class="form-group col-md-4">
+                <label for="postal_code">Postal Code</label>
+                <input type="text" class="form-control" id="postal_code" required>
+              </div>
+              <div class="form-group col-md-4">
+                <label for="company_address">Company Address</label>
+                <input type="text" class="form-control" id="company_address" required>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group col-md-4">
+                <label for="company">Company</label>
+                <input type="text" class="form-control" id="company" required>
+              </div>
+              <div class="form-group col-md-4">
+                <label for="designation">Designation</label>
+                <input type="text" class="form-control" id="designation" required>
+              </div>
+              <div class="form-group col-md-4">
+                <label for="work_phone">Work Phone</label>
+                <input type="tel" class="form-control" id="work_phone">
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group col-md-4">
+                <label for="category">Category</label>
+                <input type="text" class="form-control" id="category">
+              </div>
+              <div class="form-group col-md-4">
+                <label for="dob">Date of Birth</label>
+                <input type="date" class="form-control" id="dob">
+              </div>
+              <div class="form-group col-md-4">
+                <label for="group">Group</label>
+                <input type="text" class="form-control" id="group">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="notes">Notes</label>
+              <textarea class="form-control" id="notes" rows="3"></textarea>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group col-md-12">
+                <button type="submit" class="btn btn-primary col-md-12" id="submit">Submit</button>
+                </div>
+              </div>
+            </div>
+            
+          </form>
+        </div>
+        
+    </section>
 </div>
-
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="{% static 'js/contact.js'%}">
 {% endblock %}

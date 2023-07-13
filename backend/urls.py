@@ -17,6 +17,8 @@ urlpatterns = [
     path('<int:id>/property',views.property, name='propertyview'),
     path('<int:id>/project',views.project, name ='projectview'),
     path('signin',views.signin, name='signin'),
+    path('register',views.register, name='register'),
+    path('createdb',views.createDb, name='createdb'),
 
     # path('api/', include(router.urls)),
     path('api/index/', views.IndexView.as_view(), name='apiindex'),
@@ -41,9 +43,12 @@ urlpatterns = [
     path('api/<int:db>/projectdelete/<int:pk>/', views.ProjectDeleteApi.as_view(), name='projectdelete'),
     path('api/<int:db>/projectupdate/<int:pk>/', views.ProjectUpdateApi.as_view(), name='projectupdate'),
 
+    path('api/createdb/', views.DatabaseCreateView.as_view(), name='apicreatedb'),
+    path('api/<int:pk>/databasedelete/', views.DatabaseDeleteApi.as_view(), name='databasedelete'),
+    # path('api/<int:db>/databaseupdate/', views.DatabaseUpdateApi.as_view(), name='databaseupdate'),
 
     path('api/createuser/', views.CreateUserView.as_view(), name='apicreateuser'),
-    path('api/createdb/', views.CreateDatabaseView.as_view(), name='apicreatedb'),
+    
     path('api/signin/', views.SigninView.as_view(), name='apisignin'),
     path('api/signout/', views.SignoutView.as_view(), name='apisignout'),
     

@@ -4,37 +4,152 @@
 {% load static %}
 
 {% block content %}
+<link rel="stylesheet" href="{% static 'css/table.css' %}">
 
-<div class="section">
-    
-    <table class="table align-middle mb-0 bg-white" id="Table">
-      <thead class="bg-light">
-        <tr>
-          <th>Property Name</th>
-          <th>Property Type</th>
-          <th>Insurance</th>
-          <th>Tenant</th>
-          <th>CMA</th>
-          <th>Operating</th>
-          <th>Investing</th>
-          <th>Annual Rent Increase</th>
-          <th>Lease Start Date</th>
-          <th>Lease End Date</th>
-          <th>Lease Notice Date</th>
-          <th>COAM Agreement Start Date</th>
-          <th>COAM Agreement End Date</th>
-          <th>COAM Agreement Notice Date</th>
-          <th>Insurance Start Date</th>
-          <th>Insurance End Date</th>
-          <th>Insurance Notice Date</th>
-        </tr>
-      </thead>
-      <tbody>
+<div class="section pt-3">
+    <section>
+
+        <div class="table">
+            <table class="" id="Table"  cellpadding="0" cellspacing="15" border="0">
+              <thead class="tbl-header">
+                <tr>
+                  <th></th>
+                  <th>Property Name</th>
+                  <th>Property Type</th>
+                  <th >Insurance</th>
+                  <th>Tenant</th>
+                  <th>CMA</th>
+                  <th>Operating</th>
+                  <th>Investing</th>
+                  <th>Annual Rent Increase</th>
+                  <th>Lease Start Date</th>
+                  <th>Lease End Date</th>
+                  <th>Lease Notice Date</th>
+                  <th>COAM Agreement Start Date</th>
+                  <th>COAM Agreement End Date</th>
+                  <th>COAM Agreement Notice Date</th>
+                  <th>Insurance Start Date</th>
+                  <th>Insurance End Date</th>
+                  <th>Insurance Notice Date</th>
+                </tr>
+              </thead>
+              <tbody class="tbl-content">
+
+              </tbody>
+
+            </table>
+        </div>
         
-      </tbody>
-    </table>
-</div>
+        <div class="form">
+          <form class="container mt-3 p-4" id="newentry_form">
 
+            <div class="cross"><i class="fa-solid fa-circle-xmark fa-l"></i></div>
+
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="property_name">Property Name</label>
+                <input type="text" class="form-control" id="property_name" required>
+              </div>
+              <div class="form-group col-md-6">
+                <label for="tenant">Tenant</label>
+                <input type="text" class="form-control" id="tenant" required>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="property_type">Property Type</label>
+                <select id="property_type" class="form-control" required>
+                  <option selected>prop1</option>
+                  <option>prop2</option>
+                  <option>prop3</option>
+                </select>
+              </div>
+
+              <div class="form-group col-md-6">
+                <label for="Insurance">Insurance</label>
+                <input type="number" class="form-control" id="Insurance" placeholder="Enter number" required>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="cma">CMA</label>
+                <input type="text" class="form-control" id="cma" required>
+              </div>
+              <div class="form-group col-md-6">
+                <label for="operating">Operating</label>
+                <input type="text" class="form-control" id="operating" required>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="investing">Investing</label>
+                <input type="text" class="form-control" id="investing" required>
+              </div>
+              <div class="form-group col-md-6">
+                <label for="annual_rent_increase">Annual Rent Increase</label>
+                <input type="number" class="form-control" id="annual_rent_increase" required>
+              </div> 
+            </div> 
+
+            <div class="form-row">
+              <div class="form-group col-md-4">
+                <label for="lease_start_date">Lease Start Date</label>
+                <input type="date" class="form-control" id="lease_start_date" required>
+              </div>
+              <div class="form-group col-md-4">
+                <label for="lease_end_date">Lease End Date</label>
+                <input type="date" class="form-control" id="lease_end_date" required>
+              </div>
+              <div class="form-group col-md-4">
+                <label for="lease_notice_date">Lease Notice Date</label>
+                <input type="date" class="form-control" id="lease_notice_date" required>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-4">
+                <label for="coam_start_date">COAM Start Date</label>
+                <input type="date" class="form-control" id="coam_start_date" required>
+              </div>
+              <div class="form-group col-md-4">
+                <label for="coam_end_date">COAM End Date</label>
+                <input type="date" class="form-control" id="coam_end_date" required>
+              </div>
+              <div class="form-group col-md-4">
+                <label for="coam_notice_date">COAM Notice Date</label>
+                <input type="date" class="form-control" id="coam_notice_date" required>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group col-md-4">
+                <label for="insurance_start_date">Insurance Start Date</label>
+                <input type="date" class="form-control" id="insurance_start_date" required>
+              </div>
+              <div class="form-group col-md-4">
+                <label for="insurance_end_date">Insurance End Date</label>
+                <input type="date" class="form-control" id="insurance_end_date" required>
+              </div>
+              <div class="form-group col-md-4">
+                <label for="insurance_notice_date">Insurance Notice Date</label>
+                <input type="date" class="form-control" id="insurance_notice_date" required>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group col-md-12">
+                <button type="submit" class="btn btn-primary col-md-12" id="submit">Submit</button>
+                </div>
+              </div>
+            </div>
+            
+          </form>
+        </div>
+
+    </section>
+</div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="{% static 'js/property.js'%}">
 {% endblock %}

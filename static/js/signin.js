@@ -24,6 +24,7 @@ $(document).ready(function() {
       },
       error: function(error) {
         // Handle login error
+        $('#error').text("username or password incorrect");
         console.log(error);
         console.log('Login failed:', error.responseText);
       }
