@@ -38,10 +38,10 @@ $(document).ready(function(){
           var newRow = $("<div>").addClass("row");
           newRow.attr("id",db.id);
 
-          var col1 = $('<div>').addClass('col-sm-6');
+          var col1 = $('<div>').addClass('col-sm-7');
           col1.append($('<h6>').addClass('mb-0').text(db.title));
 
-          var col2 = $('<div>').addClass('col-sm-3 text-secondary');
+          var col2 = $('<div>').addClass('col-sm-2 text-secondary');
           col2.append($('<button>').addClass('btn btn-outline-info edit_btn').text('Edit'));
 
           var col3 = $('<div>').addClass('col-sm-3 text-secondary');
@@ -58,10 +58,10 @@ $(document).ready(function(){
           var newRow = $("<div>").addClass("row");
           newRow.attr("id",db.id);
 
-          var col1 = $('<div>').addClass('col-sm-6');
+          var col1 = $('<div>').addClass('col-sm-7');
           col1.append($('<h6>').addClass('mb-0').text(db.title));
 
-          var col2 = $('<div>').addClass('col-sm-3 text-secondary');
+          var col2 = $('<div>').addClass('col-sm-2 text-secondary');
           col2.append($('<button>').addClass('btn btn-outline-info edit_btn').text('Edit'));
 
           var col3 = $('<div>').addClass('col-sm-3 text-secondary');

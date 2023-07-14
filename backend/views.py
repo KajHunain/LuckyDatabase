@@ -14,13 +14,13 @@ from django.db.models import Q
 @login_required
 def Index(request):
     
-    # try : 
-    #     db = []
-    #     for i in Database.objects.filter(creator=request.user):
-    #         db.append(i.database_title)
+    try : 
         
-    # except: 
-    #     return redirect("createdb")
+        if len(Database.objects.filter(creator=request.user)) == 0:
+            return redirect("createdb")
+        
+    except: 
+        return redirect("createdb")
     
     return render(request, "index.html", {"username":request.user})
 
@@ -60,7 +60,7 @@ def createDb(request):
     return render(request, "createdatabase.html", {"username":request.user})
 
 
-class IndexView(APIView):
+class IndexViewApi(APIView):
     def get(self, request):
 
         print("Index Page", request.user)

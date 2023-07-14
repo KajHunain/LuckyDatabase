@@ -21,7 +21,7 @@ urlpatterns = [
     path('createdb',views.createDb, name='createdb'),
 
     # path('api/', include(router.urls)),
-    path('api/index/', views.IndexView.as_view(), name='apiindex'),
+    path('api/index/', views.IndexViewApi.as_view(), name='apiindex'),
 
     path('api/<int:db>/contact/', views.ContactListApi.as_view(), name='contactlistapi'),
     path('api/<int:db>/contactcreate/', views.ContactCreateApi.as_view(), name='contactcreateapi'),

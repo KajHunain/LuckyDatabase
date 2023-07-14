@@ -20,7 +20,7 @@ $(document).ready(function() {
       },
       success: function(response) {
 
-        window.location.href = 'http://127.0.0.1:8000/'; 
+        window.location.href = 'http://127.0.0.1:8000/createdb'; 
       },
       error: function(error) {
         // Handle login error
