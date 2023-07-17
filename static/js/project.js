@@ -31,6 +31,50 @@ $(document).ready(function() {
     }
     return cookieValue;
   }
+
+  function create_row(tablename,fields){
+    $.ajax({
+      url: '../api/'+ db_id +'/'+tablename+'create/',
+      type: 'POST',
+      data: fields,
+      dataType: 'json',
+      headers: {
+          'X-CSRFToken': getCookie('csrftoken')
+        },
+      success: function(response) { 
+        console.log(response);
+      },
+      error: function(xhr, status, error) {
+        console.log('Error:', error);
+      }
+
+    });
+  }  
+
+  function if_company_exist(company_title, callback) {
+    $.ajax({
+      url: '../api/' + db_id + '/company',
+      type: 'GET',
+      dataType: 'json',
+      success: function(data) {
+        var result = false;
+
+        for (var i = 0; i < data.length; i++) {
+
+          if (data[i].company_name === company_title.trim()) {
+            result = true;
+            break;
+          }
+        }
+
+        callback(result);
+      },
+      error: function(xhr, status, error) {
+        console.log('Error:', error);
+        callback(false); 
+      }
+    });
+  }
   
   $.ajax({
     url: '../api/'+ db_id +'/project/',
@@ -45,10 +89,11 @@ $(document).ready(function() {
       for (var i = 0; i < data.length; i++) {
         var project = data[i];
 
-        var newRow = $('<tr>').attr('id', project.id);
-
+        var newRow = $('<tr>').attr('id', project.id).addClass("row");
+        var icon_td = $("<td>").addClass("dlt");
         var deleteButton = $('<i>').addClass("fa-solid fa-circle-xmark fa-l dlt_btn");
-        newRow.append(deleteButton);
+        icon_td.append(deleteButton);
+        newRow.append(icon_td);
 
         var theadings = $('#Table thead');
         
@@ -56,7 +101,7 @@ $(document).ready(function() {
 
           var columnName = $(this).text().trim().toLowerCase().replace(/ /g, "_");
           var cellValue = project[columnName];
-          var newCell = $('<td>').text(cellValue);
+          var newCell = $('<td>').text(cellValue).addClass("col");
 
           newRow.append(newCell);
         });
@@ -78,7 +123,16 @@ $(document).ready(function() {
       $(this).addClass('editing');
       var currentValue = $(this).text().trim();
       original_value = currentValue;
-      $(this).html('<input type="text" class="edit-input" value="' + currentValue + '">');
+
+      var columnIndex = $(this).index();
+      var inputType = 'text';
+
+      if (columnIndex === 4 || columnIndex === 5 || columnIndex === 6) {
+        inputType = 'date'; 
+      }
+
+
+      $(this).html('<input type="' + inputType + '" class="edit-input" value="' + currentValue + '">');
       $(this).find('input').focus();
     }
   });
@@ -101,7 +155,7 @@ $(document).ready(function() {
 
       row.find('td').each(function(index) {
         var cellValue = $(this).text().trim();
-        var columnName = $('#Table thead th:eq(' + (index+1) + ')').text().trim();
+        var columnName = $('#Table thead th:eq(' + (index) + ')').text().trim();
         columnName = columnName.toLowerCase().replaceAll(" ", "_");
 
         rowData[columnName] = cellValue;
@@ -141,6 +195,24 @@ $(document).ready(function() {
       contract_end_date: $('#contract_end_date').val(),
       contract_notice_date: $('#contract_notice_date').val()
     };
+
+    var company = $('#company').val().trim();
+
+    if_company_exist(company, function(result) {
+    
+      if (result) {
+
+        create_row("project",formData);
+        location.reload(true);
+        } 
+      else {
+
+        create_row("company",{"company_name":company});
+        create_row("project",formData);
+        location.reload(true);
+        
+        } 
+    });
     
     $.ajax({
       url: '../api/'+ db_id +'/projectcreate/',

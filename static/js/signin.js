@@ -8,7 +8,7 @@ $(document).ready(function() {
     var csrfToken = $('input[name="csrfmiddlewaretoken"]').val();
 
     $.ajax({
-      url: 'http://127.0.0.1:8000/api/signin/', // Replace with your API endpoint URL
+      url: 'http://127.0.0.1:8000/api/signin/', 
       type: 'POST',
       data: {
         'username': username,
@@ -20,7 +20,7 @@ $(document).ready(function() {
       },
       success: function(response) {
 
-        window.location.href = 'http://127.0.0.1:8000/createdb'; 
+        window.location.href = 'http://127.0.0.1:8000/'; 
       },
       error: function(error) {
         // Handle login error

@@ -69,17 +69,19 @@ $(document).ready(function() {
       for (var i = 0; i < data.length; i++) {
         var property = data[i];
 
-        var newRow = $('<tr>').attr('id', property.id);
+        var newRow = $('<tr>').attr('id', property.id).addClass("row");
         var theadings = $('#Table thead');
 
+        var icon_td = $("<td>").addClass("dlt");
         var deleteButton = $('<i>').addClass("fa-solid fa-circle-xmark fa-l dlt_btn");
-        newRow.append(deleteButton);
+        icon_td.append(deleteButton);
+        newRow.append(icon_td);
         
         theadings.find('th:not(:first-child)').each(function (index) {
 
           var columnName = $(this).text().trim().toLowerCase().replace(/ /g, "_");
           var cellValue = property[columnName];
-          var newCell = $('<td>').text(cellValue);
+          var newCell = $('<td>').text(cellValue).addClass("col");
 
           newRow.append(newCell);
         });
@@ -103,7 +105,18 @@ $(document).ready(function() {
       $(this).addClass('editing');
       var currentValue = $(this).text().trim();
       original_value = currentValue;
-      $(this).html('<input type="text" class="edit-input" value="' + currentValue + '">');
+
+      var columnIndex = $(this).index();
+      var inputType = 'text';
+
+      if (columnIndex >= 9 && columnIndex <= 17) {
+        inputType = 'date'; 
+      } else if (columnIndex === 3 || columnIndex === 7  || columnIndex === 8 ) {
+        inputType = 'number'; 
+      }
+
+
+      $(this).html('<input type="' + inputType + '" class="edit-input" value="' + currentValue + '">');
       $(this).find('input').focus();
     }
   });
@@ -127,7 +140,7 @@ $(document).ready(function() {
 
       row.find('td').each(function(index) {
         var cellValue = $(this).text().trim();
-        var columnName = $('#Table thead th:eq(' + (index+1) + ')').text().trim();
+        var columnName = $('#Table thead th:eq(' + index + ')').text().trim();
         columnName = columnName.toLowerCase().replaceAll(" ", "_");
 
         rowData[columnName] = cellValue;

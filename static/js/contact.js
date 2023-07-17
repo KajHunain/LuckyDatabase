@@ -32,50 +32,143 @@ $(document).ready(function() {
     return cookieValue;
   }
 
-  $.ajax({
-    url: '../api/'+db_id+'/contact/', 
-    type: 'GET',
-    dataType: 'json',
-    success: function(data) {
-
-      var tbody = $('table tbody');
-
-      for (var i = 0; i < data.length; i++) {
-        var contact = data[i];
-
-        var newRow = $('<tr>').attr('id', contact.id);
-        var deleteButton = $('<i>').addClass("fa-solid fa-circle-xmark fa-l dlt_btn");
-        newRow.append(deleteButton);
-
-        var theadings = $('#Table thead');
-        
-        theadings.find('th:not(:first-child)').each(function (index) {
-
-          var columnName = $(this).text().trim().toLowerCase().replace(/ /g, "_");
-          var cellValue = contact[columnName];
-          var newCell = $('<td>').text(cellValue);
-
-          newRow.append(newCell);
-        });
-        
-        tbody.append(newRow);
-
-        }  
+  function create_row(tablename,fields){
+    $.ajax({
+      url: '../api/'+ db_id +'/'+tablename+'create/',
+      type: 'POST',
+      data: fields,
+      dataType: 'json',
+      headers: {
+          'X-CSRFToken': getCookie('csrftoken')
+        },
+      success: function(response) { 
+        console.log(response);
       },
-    error: function(xhr, status, error) {
-      
-      console.log('Error:', error);
+      error: function(xhr, status, error) {
+        console.log('Error:', error);
+      }
+
+    });
+  }  
+
+  function update_row(tablename,fields){
+
+    if( fields.date_of_birth == null || fields.date_of_birth == "" || fields.date_of_birth == "null"){
+      fields.date_of_birth = null;
     }
-  });
+    console.log(fields);
+    $.ajax({
+      url: '../api/'+ db_id +'/'+tablename+'update/'+ fields.id+'/',
+      type: 'PUT',
+      data: JSON.stringify(fields),
+      contentType: 'application/json',
+      headers: {
+        'X-CSRFToken': getCookie('csrftoken')
+      },
+
+      success: function(response) {
+
+        console.log('Data updated successfully');
+
+      },
+      error: function(xhr, status, error) {
+
+        console.log('Error:', error);
+      }
+    });
+
+  }
+
+  function if_company_exist(company_title, callback) {
+    $.ajax({
+      url: '../api/' + db_id + '/company',
+      type: 'GET',
+      dataType: 'json',
+      success: function(data) {
+        var result = false;
+
+        for (var i = 0; i < data.length; i++) {
+
+          if (data[i].company_name === company_title.trim()) {
+            result = true;
+            break;
+          }
+        }
+
+        callback(result);
+      },
+      error: function(xhr, status, error) {
+        console.log('Error:', error);
+        callback(false); 
+      }
+    });
+  }
+
+
+  var server_data = {}
+
+  function dataupload_table(){
+
+    $.ajax({
+      url: '../api/'+db_id+'/contact/', 
+      type: 'GET',
+      dataType: 'json',
+      success: function(data) {
+
+        var tbody = $('table tbody');
+
+        for (var i = 0; i < data.length; i++) {
+          var contact = data[i];
+
+          var newRow = $('<tr>').attr('id', contact.id).addClass("row");
+          var icon_td = $("<td>").addClass("dlt");
+          var deleteButton = $('<i>').addClass("fa-solid fa-circle-xmark fa-l dlt_btn");
+          icon_td.append(deleteButton);
+          newRow.append(icon_td);
+
+          var theadings = $('#Table thead');
+          
+          theadings.find('th:not(:first-child)').each(function (index) {
+
+            var columnName = $(this).text().trim().toLowerCase().replace(/ /g, "_");
+            var cellValue = contact[columnName];
+            var newCell = $('<td>').text(cellValue).addClass("col");
+
+            newRow.append(newCell);
+          });
+          
+          tbody.append(newRow);
+
+          }  
+        },
+      error: function(xhr, status, error) {
+        
+        console.log('Error:', error);
+      }
+    });
+  }
+  dataupload_table();
 
   var original_value = '';
 
   $(document).on('click', '#Table td', function() {
     if (!$(this).hasClass('editing')) {
       $(this).addClass('editing');
+
       var currentValue = $(this).text().trim();
       original_value = currentValue;
-      $(this).html('<input type="text" class="edit-input" value="' + currentValue + '">');
+
+      var columnIndex = $(this).index();
+      var inputType = 'text';
+
+      if (columnIndex === 18) {
+        inputType = 'date'; 
+      } else if (columnIndex === 3 || columnIndex ===4  || columnIndex === 5 || columnIndex === 12 || columnIndex === 16) {
+        inputType = 'number'; 
+      }
+
+
+      $(this).html('<input type="' + inputType + '" class="edit-input" value="' + currentValue + '">');
       $(this).find('input').focus();
     }
   });
@@ -97,35 +190,18 @@ $(document).ready(function() {
 
       row.find('td').each(function(index) {
         var cellValue = $(this).text().trim();
-        var columnName = $('#Table thead th:eq(' + (index+1) + ')').text().trim();
+        var columnName = $('#Table thead th:eq(' + (index) + ')').text().trim();
         columnName = columnName.toLowerCase().replaceAll(" ", "_");
 
         rowData[columnName] = cellValue;
       });
+      console.log(rowData);
 
-      $.ajax({
-        url: '../api/'+ db_id +'/contactupdate/'+ rowData.id+'/',
-        type: 'PUT',
-        data: JSON.stringify(rowData),
-        contentType: 'application/json',
-        headers: {
-          'X-CSRFToken': getCookie('csrftoken')
-        },
-
-        success: function(response) {
-
-          console.log('Data updated successfully');
-
-        },
-        error: function(xhr, status, error) {
-
-          console.log('Error:', error);
-        }
-      });
-
+      update_row("contact",rowData);
     
     }
   });
+
 
 
   $('#submit').click(function(event) {
@@ -153,24 +229,28 @@ $(document).ready(function() {
       group: $('#group').val(),
       notes: $('#notes').val()
     };
-    
-    $.ajax({
-      url: '../api/'+ db_id +'/contactcreate/',
-      type: 'POST',
-      data: formData,
-      dataType: 'json',
-      headers: {
-          'X-CSRFToken': getCookie('csrftoken')
-        },
-      success: function(response) {
-        location.reload(true);
-        console.log(response);
-      },
-      error: function(xhr, status, error) {
-        console.log('Error:', error);
-      }
 
+
+
+    var company = $('#company').val().trim();
+
+    if_company_exist(company, function(result) {
+    
+      if (result) {
+
+        create_row("contact",formData);
+        location.reload(true);
+        } 
+      else {
+
+        create_row("company",{"company_name":company});
+        create_row("contact",formData);
+        location.reload(true);
+        
+        } 
     });
+
+
     
   });
 
