@@ -63,7 +63,7 @@ $(document).ready(function(){
       event.preventDefault();  // Prevent the default link behavior
 
       $.ajax({
-        url: '../api/signout',  // Replace with the actual URL for the logout endpoint
+        url: '../api/signout/',  // Replace with the actual URL for the logout endpoint
         type: 'GET',
         dataType: 'json',
         success: function(response) {

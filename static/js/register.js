@@ -9,7 +9,7 @@ $(document).ready(function() {
 
 
     $.ajax({
-      url: 'http://127.0.0.1:8000/api/createuser/',
+      url: '../api/createuser/',
       type: 'POST',
       data: {
         'username': username,
@@ -20,7 +20,7 @@ $(document).ready(function() {
 
       success: function(response) {
 
-        window.location.href = 'http://127.0.0.1:8000/'; 
+        window.location.href = '../'; 
       },
       error: function(error) {
         
