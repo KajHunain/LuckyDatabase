@@ -23,7 +23,7 @@ $(document).ready(function() {
     var editors = $('#editors').val();
 
     $.ajax({
-      url: 'http://127.0.0.1:8000/api/createdb/',
+      url: '../api/createdb/',
       type: 'POST',
       data: {
         'database_title': database_title,
@@ -36,7 +36,7 @@ $(document).ready(function() {
 
       success: function(response) {
         console.log("success");
-        window.location.href = 'http://127.0.0.1:8000/'; 
+        window.location.href = '../'; 
 
       },
       error: function(error) {
