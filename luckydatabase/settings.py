@@ -23,11 +23,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-ov!+vti2f6rhhi+lorxyam=85!hr6)u!%$2c#lg723#591*o7f'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 # PublicIPs: 18.116.72.47    PrivateIPs: 172.31.17.92
 # ALLOWED_HOSTS = ["3.138.199.52"]
 # ALLOWED_HOSTS = ["127.0.0.1"]
-ALLOWED_HOSTS = ["18.116.72.47"]
+ALLOWED_HOSTS = []
+# ALLOWED_HOSTS = ["18.116.72.47"]
 
 
 
@@ -60,24 +61,23 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'luckydatabase.urls'
 
-CORS_ALLOWED_ORIGIN_REGEXES = [
-    r"^https?://.*$",
-]
+# CORS_ALLOWED_ORIGIN_REGEXES = [
+#     r"^http?://.*$",
+# ]
 CORS_ALLOWED_ALL_ORIGINS = True
-# Allow all headers for simplicity. You can restrict this to the necessary headers.
-CORS_ALLOW_HEADERS = ['*']
+CORS_ALLOW_CREDENTIALS = True # CORS_ORIGIN_ALLOW_ALL = True
+# CORS_ALLOW_HEADERS = ['*'] # Allow all headers for simplicity. You can restrict this to the necessary headers.
+# CORS_ALLOW_METHODS = ['*'] # Allow all HTTP methods (GET, POST, PUT, DELETE, etc.).
 
-# Allow all HTTP methods (GET, POST, PUT, DELETE, etc.).
-CORS_ALLOW_METHODS = ['*']
 
 # CORS_ALLOWED_ORIGINS = [
 #     "http://3.138.199.52:8000",
-#     # "http://localhost:8000",
-#     # "http://127.0.0.1:8000"
+#     "http://localhost:8000",
+#     "http://127.0.0.1:8000"
 # ]
 
-# CORS_ORIGIN_ALLOW_ALL = True
-CORS_ALLOW_CREDENTIALS = True
+
+
 
 TEMPLATES = [
     {
@@ -156,8 +156,9 @@ import os
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = 'static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-# STATICFILES_DIRS = [    BASE_DIR / "static",]
+# STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+STATICFILES_DIRS = [    BASE_DIR / "static",]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
