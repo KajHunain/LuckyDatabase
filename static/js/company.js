@@ -14,7 +14,7 @@ $(document).ready(function() {
 
   $('#pagename').text('Company');
   var currentUrl = window.location.href;
-  var regex = /http:\/\/127\.0\.0\.1:8000\/(\d+)\/([^/]+)\/?/;
+  var regex = /\/(\d+)\/([^/]+)\/?/;
   var db_id = currentUrl.match(regex)[1];
   
   function getCookie(name) {
@@ -33,7 +33,7 @@ $(document).ready(function() {
   }
 
   $.ajax({
-    url: '../api/'+db_id+'/company', 
+    url: '../api/'+db_id+'/company/', 
     type: 'GET',
     dataType: 'json',
     success: function(data) {
@@ -207,68 +207,6 @@ $(document).ready(function() {
     
   });
   
-  // $(document).on('click', '#update', function() {
-
-  //   var updatedData = [];
-
-  //   $('#Table tbody tr').each(function() {
-  //     var row = $(this);
-  //     var rowData = {};
-
-  //     rowData.id = Number(row.attr('id'));
-  //     rowData.database = Number(db_id);
-
-  //     row.find('td').each(function(index) {
-  //       var cellValue = $(this).text().trim();
-  //       var columnName = $('#Table thead th:eq(' + index + ')').text().trim();
-  //       columnName = columnName.toLowerCase().replaceAll(" ", "_");
-
-  //       rowData[columnName] = cellValue;
-  //     });
-
-  //     updatedData.push(rowData);
-  //   });
-  //   var project;
-
-  //   for (var i=0; i < updatedData.length; i++){
-      
-  //     $.ajax({
-  //       url: '../api/'+ db_id +'/companyupdate/'+ updatedData[i].id+'/',
-  //       type: 'PUT',
-  //       data: JSON.stringify(updatedData[i]),
-  //       contentType: 'application/json',
-  //       headers: {
-  //         'X-CSRFToken': getCookie('csrftoken')
-  //       },
-
-  //       success: function(response) {
-
-  //         console.log('Data updated successfully');
-  //         $('#update').hide();
-  //       },
-  //       error: function(xhr, status, error) {
-
-  //         console.log('Error:', error);
-  //       }
-  //     });
-  //   }
-  // });
-
-  // $(document).on('click', '#create', function() {
-
-  //   var table = $('#Table');
-  //   var lastRow = table.find('tbody tr:last');
-
-  //   var newRow = $('<tr>');
-  //   console.log("new row added")
-
-  //   table.find('thead th').each(function() {
-  //     newRow.append($('<td>'));
-  //   });
-
-  //   table.find('tbody').append(newRow);
-
-  // });
 
 });
 

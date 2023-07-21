@@ -14,7 +14,7 @@ $(document).ready(function() {
   
   $('#pagename').text('Project');
   var currentUrl = window.location.href;
-  var regex = /http:\/\/127\.0\.0\.1:8000\/(\d+)\/([^/]+)\/?/;
+  var regex = /\/(\d+)\/([^/]+)\/?/;
   var db_id = currentUrl.match(regex)[1];
 
   function getCookie(name) {

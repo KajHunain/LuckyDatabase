@@ -64,6 +64,7 @@ def createDb(request):
 
 
 class IndexViewApi(APIView):
+    permission_classes = [IsAuthenticated]
     def get(self, request):
 
         print("Index Page", request.user)

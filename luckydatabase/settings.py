@@ -25,10 +25,9 @@ SECRET_KEY = 'django-insecure-ov!+vti2f6rhhi+lorxyam=85!hr6)u!%$2c#lg723#591*o7f
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 # PublicIPs: 18.116.72.47    PrivateIPs: 172.31.17.92
-# ALLOWED_HOSTS = ["3.138.199.52"]
-# ALLOWED_HOSTS = ["127.0.0.1"]
+
 ALLOWED_HOSTS = []
-# ALLOWED_HOSTS = ["18.116.72.47"]
+
 
 
 
@@ -61,13 +60,13 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'luckydatabase.urls'
 
-# CORS_ALLOWED_ORIGIN_REGEXES = [
-#     r"^http?://.*$",
-# ]
+CORS_ALLOWED_ORIGIN_REGEXES = [
+    r"^https?://.*$",
+]
 CORS_ALLOWED_ALL_ORIGINS = True
 CORS_ALLOW_CREDENTIALS = True # CORS_ORIGIN_ALLOW_ALL = True
-# CORS_ALLOW_HEADERS = ['*'] # Allow all headers for simplicity. You can restrict this to the necessary headers.
-# CORS_ALLOW_METHODS = ['*'] # Allow all HTTP methods (GET, POST, PUT, DELETE, etc.).
+CORS_ALLOW_HEADERS = ['*'] # Allow all headers for simplicity. You can restrict this to the necessary headers.
+CORS_ALLOW_METHODS = ['*'] # Allow all HTTP methods (GET, POST, PUT, DELETE, etc.).
 
 
 # CORS_ALLOWED_ORIGINS = [
@@ -170,9 +169,9 @@ LOGIN_URL = "/signin"
 SESSION_ENGINE = 'django.contrib.sessions.backends.db'
 SESSION_COOKIE_NAME = 'sessionid'
 SESSION_COOKIE_AGE = 3600
-SESSION_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = False
 
 CSRF_COOKIE_SAMESITE = 'Strict'
 SESSION_COOKIE_SAMESITE = 'Strict'
 CSRF_COOKIE_HTTPONLY = False  # False since we will grab it via universal-cookies
-SESSION_COOKIE_HTTPONLY = True
+# SESSION_COOKIE_HTTPONLY = True
