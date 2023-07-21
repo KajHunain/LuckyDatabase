@@ -214,22 +214,6 @@ $(document).ready(function() {
         } 
     });
     
-    $.ajax({
-      url: '../api/'+ db_id +'/projectcreate/',
-      type: 'POST',
-      data: formData,
-      dataType: 'json',
-      headers: {
-          'X-CSRFToken': getCookie('csrftoken')
-        },
-      success: function(response) {
-        location.reload(true);
-        console.log(response);
-      },
-      error: function(xhr, status, error) {
-        console.log('Error:', error);
-      }
-    });
   });
 
   $(document).on('click', '.dlt_btn', function() {
