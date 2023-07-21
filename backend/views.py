@@ -14,8 +14,6 @@ from datetime import date
 
 @login_required
 def Index(request):
-
-    sample_contacts = [{'firstname': 'John','lastname': 'Doe','mobile': '1234567890','mobile2': '9876543210','fax': '555-1234','email': 'johndoe@example.com','personal_address': '123 Main St','rating': 4,'city': 'New York','state': 'NY','country': 'USA','postal_code': '10001','company_address': '456 Business Ave','company': '','designation': 'Manager','work_phone': '555-5678','category': 'Business','date_of_birth': date(1985, 7, 15),'group': 'Colleagues','notes': 'Lorem ipsum dolor sit amet.'},{'firstname': 'Jane','lastname': 'Smith','mobile': '1112223333','mobile2': '','fax': '','email': 'janesmith@example.com','personal_address': '789 Oak St','rating': 5,'city': 'Los Angeles','state': 'CA','country': 'USA','postal_code': '90001','company_address': '321 Corporate Blvd','company': '','designation': 'Director','work_phone': '555-9876','category': 'Personal','date_of_birth': date(1990, 5, 20),'group': 'Friends','notes': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'}]
     
     try : 
         
@@ -198,26 +196,6 @@ class IndexDatabase(viewsets.ModelViewSet):
         # If the user is a superuser, return an empty queryset
         return Database.objects.none()
 
-# class ContactView(viewsets.ModelViewSet):
-#     permission_classes = [IsAuthenticated]
-#     serializer_class = ContactSerializer
-
-#     def get_queryset(self):
-#         queryset = Contact.objects.all()
-        
-#         if not self.request.user.is_superuser:
-#             db_id = self.kwargs.get('id')
-#             db = Database.objects.filter(id=db_id, creator=self.request.user)
-
-#             queryset = queryset.filter(database__in=db)
-            
-#         else:
-
-#             db_id = self.kwargs.get('id')
-#             queryset = queryset.filter(database__in=db_id)
-
-#         return queryset
-
 class ContactListApi(generics.ListAPIView):
     permission_classes = [IsAuthenticated]
     serializer_class = ContactSerializer
@@ -270,8 +248,9 @@ class ContactDeleteApi(generics.DestroyAPIView):
     def destroy(self, request, *args, **kwargs):
 
         instance = self.get_object()
+        print(instance)
 
-        if not (instance.database.creator == request.user or instance.database.editor == request.user):
+        if not (instance.database.creator == request.user or instance.database.editors == request.user or request.user.is_superuser):
             return Response({'message': 'Permission denied. User role is not permitted to delete the item'}, 
                             status=status.HTTP_403_FORBIDDEN)
         
@@ -295,7 +274,7 @@ class ContactUpdateApi(generics.UpdateAPIView):
         instance = self.get_object()
         database = instance.database
 
-        if not (database.creator == request.user or database.editor == request.user):
+        if not (database.creator == request.user or database.editor == request.user or request.user.is_superuser):
             return Response({'message': 'Permission denied.'}, status=status.HTTP_403_FORBIDDEN)
         
         serializer = self.serializer_class(instance, data=request.data)
@@ -365,7 +344,7 @@ class CompanyDeleteApi(generics.DestroyAPIView):
 
         instance = self.get_object()
 
-        if not (instance.database.creator == request.user or instance.database.editor == request.user):
+        if not (instance.database.creator == request.user or instance.database.editors == request.user or request.user.is_superuser):
             return Response({'message': 'Permission denied. User role is not permitted to delete the item'}, 
                             status=status.HTTP_403_FORBIDDEN)
         
@@ -388,7 +367,7 @@ class CompanyUpdateApi(generics.UpdateAPIView):
         instance = self.get_object()
         database = instance.database
 
-        if not (database.creator == request.user or database.editor == request.user):
+        if not (database.creator == request.user or database.editor == request.user or request.user.is_superuser):
             return Response({'message': 'Permission denied.'}, status=status.HTTP_403_FORBIDDEN)
         
         serializer = self.serializer_class(instance, data=request.data)
@@ -402,27 +381,6 @@ class CompanyUpdateApi(generics.UpdateAPIView):
 
         return Response(response_data, status=status.HTTP_200_OK)
 
-
-# class PropertyListApi(generics.ListAPIView):
-#     permission_classes = [IsAuthenticated]
-#     serializer_class = PropertySerializer
-#     queryset = Property.objects.all()
-    
-#     def get(self, request, *args, **kwargs):
-        
-#         if not self.request.user.is_superuser:
-            
-#             db_id = self.kwargs.get("db")
-#             db = Database.objects.filter(id=db_id, creator = request.user)
-#             queryset = self.queryset.filter(database__in=[db])
-            
-#         else:
-#             print("superuserentered")
-#             db_id = self.kwargs.get("db")
-#             queryset = self.queryset.filter(database__in=[db_id])
-
-#         serializer = self.get_serializer(queryset, many=True)
-#         return Response(serializer.data,status=status.HTTP_200_OK)
 
 class PropertyListApi(generics.ListAPIView):
     permission_classes = [IsAuthenticated]
@@ -477,7 +435,7 @@ class PropertyDeleteApi(generics.DestroyAPIView):
 
         instance = self.get_object()
 
-        if not (instance.database.creator == request.user or instance.database.editor == request.user):
+        if not (instance.database.creator == request.user or instance.database.editors == request.user or request.user.is_superuser):
             return Response({'message': 'Permission denied. User role is not permitted to delete the item'}, 
                             status=status.HTTP_403_FORBIDDEN)
         
@@ -500,7 +458,7 @@ class PropertyUpdateApi(generics.UpdateAPIView):
         instance = self.get_object()
         database = instance.database
 
-        if not (database.creator == request.user or database.editor == request.user):
+        if not (database.creator == request.user or database.editor == request.user or request.user.is_superuser):
             return Response({'message': 'Permission denied.'}, status=status.HTTP_403_FORBIDDEN)
         
         serializer = self.serializer_class(instance, data=request.data)
@@ -568,8 +526,8 @@ class ProjectDeleteApi(generics.DestroyAPIView):
     def destroy(self, request, *args, **kwargs):
 
         instance = self.get_object()
-
-        if not (instance.database.creator == request.user or instance.database.editor == request.user):
+        
+        if not (instance.database.creator == request.user or instance.database.editors == request.user or request.user.is_superuser):
             return Response({'message': 'Permission denied. User role is not permitted to delete the item'}, 
                             status=status.HTTP_403_FORBIDDEN)
         
@@ -592,7 +550,7 @@ class ProjectUpdateApi(generics.UpdateAPIView):
         instance = self.get_object()
         database = instance.database
 
-        if not (database.creator == request.user or database.editor == request.user):
+        if not (database.creator == request.user or database.editor == request.user or request.user.is_superuser):
             return Response({'message': 'Permission denied.'}, status=status.HTTP_403_FORBIDDEN)
         
         serializer = self.serializer_class(instance, data=request.data)

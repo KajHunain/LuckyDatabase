@@ -80,11 +80,9 @@ $(document).ready(function() {
       var columnIndex = $(this).index();
       var inputType = 'text';
 
-      // if (columnIndex === 18) {
-      //   inputType = 'date'; 
-      // } else if (columnIndex === 3 || columnIndex ===4  || columnIndex === 5 || columnIndex === 12 || columnIndex === 16) {
-      //   inputType = 'number'; 
-      // }
+      if (columnIndex === 0) {
+              return 0;
+      }
 
       $(this).html('<input type="' + inputType + '" class="edit-input" value="' + currentValue + '">');
       $(this).find('input').focus();

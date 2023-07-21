@@ -83,7 +83,9 @@ $(document).ready(function() {
       var columnIndex = $(this).index();
       var inputType = 'text';
 
-      if (columnIndex >= 9 && columnIndex <= 17) {
+      if (columnIndex === 0) {
+        return 0;
+      } else if (columnIndex >= 9 && columnIndex <= 17) {
         inputType = 'date'; 
       } else if (columnIndex === 3 || columnIndex === 7  || columnIndex === 8 ) {
         inputType = 'number'; 

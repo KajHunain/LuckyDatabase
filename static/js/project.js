@@ -127,7 +127,10 @@ $(document).ready(function() {
       var columnIndex = $(this).index();
       var inputType = 'text';
 
-      if (columnIndex === 4 || columnIndex === 5 || columnIndex === 6) {
+      if (columnIndex === 0){
+        return 0;
+      }
+        else if (columnIndex === 4 || columnIndex === 5 || columnIndex === 6) {
         inputType = 'date'; 
       }
 
