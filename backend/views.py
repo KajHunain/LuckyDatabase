@@ -607,7 +607,6 @@ class ProjectUpdateApi(generics.UpdateAPIView):
         return Response(response_data, status=status.HTTP_200_OK)
 
 
-
 class SigninView(APIView):
     
     def post(self, request):
