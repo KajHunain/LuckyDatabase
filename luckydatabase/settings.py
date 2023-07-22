@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+import os
+import json
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,16 +22,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-ov!+vti2f6rhhi+lorxyam=85!hr6)u!%$2c#lg723#591*o7f'
+with open(os.path.join(BASE_DIR, 'secrets.json')) as secrets_file:
+    SECRET_KEY = json.load(secrets_file)
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-# PublicIPs: 18.116.72.47    PrivateIPs: 172.31.17.92
+# PublicIPs: 3.21.57.117    PrivateIPs: 172.31.17.92
 
-ALLOWED_HOSTS = []
-
-
-
+ALLOWED_HOSTS = ["3.21.57.117","127.0.0.1"]
 
 # Application definition
 
@@ -55,7 +56,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    # 'backend.middleware.SigninMiddleware'
 ]
 
 ROOT_URLCONF = 'luckydatabase.urls'
@@ -150,7 +150,6 @@ USE_I18N = True
 
 USE_TZ = True
 
-import os
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
@@ -164,8 +163,7 @@ STATICFILES_DIRS = [    BASE_DIR / "static",]
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-LOGIN_URL = "/signin"
-# LOGIN_REDIRECT_URL = "/signin"
+LOGIN_URL = "/signin"   # LOGIN_REDIRECT_URL = "/signin"
 SESSION_ENGINE = 'django.contrib.sessions.backends.db'
 SESSION_COOKIE_NAME = 'sessionid'
 SESSION_COOKIE_AGE = 3600

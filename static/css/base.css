@@ -209,7 +209,7 @@ body{
     height: 50px;
     display: flex;
     align-items: center;
-    padding: 15px 30px;
+    padding: 15px 10px;
     flex: auto;
 
 }
@@ -254,8 +254,8 @@ body{
 
 
 .section .top_navbar .button button{
-    display:flex ;
-    flex-direction: row; 
+/*    display:flex ;
+    flex-direction: row; */
     margin: 0 15px;
     font-size: 15px;
     color: #fff;
@@ -278,5 +278,67 @@ body.active .section{
 body.active .table {
     width: 97%;
 	
+}
+
+@media only screen and (max-width: 400px) {
+
+
+    body .sidebar{
+
+        width: 180px;
+        max-width: 180px;
+    }
+    body #pagename {
+        font-size: 15px;
+
+    }
+
+
+    body .section .top_navbar .button button {
+        font-size: 12px;
+        margin: 0;
+    }
+
+
+    body .section{
+        width: calc(100% - 180px);
+        margin-left: 180px;
+        transition: all 0.5s ease;
+    }
+
+    body.active .sidebar{
+        left: -180px;
+    }
+
+    body.active .table {
+        width: 90%;
+        
+    }
+}
+
+
+@media only screen and (min-width: 600px) {
+
+
+    body .sidebar{
+
+        width: 200px;
+        max-width: 200px;
+    }
+
+    body .section{
+        width: calc(100% - 200px);
+        margin-left: 200px;
+        transition: all 0.5s ease;
+    }
+
+    body.active .sidebar{
+        left: -200px;
+    }
+
+    body.active .table {
+        width: 90%;
+        
+    }
 }
 
