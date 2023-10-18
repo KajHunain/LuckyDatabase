@@ -24,37 +24,45 @@ def Index(request):
         return redirect("createdb")
     
     return render(request, "index.html", {"username":request.user})
+def baseview(request):
+    return render(request, "base.html", {})
 
 @login_required
 def contact(request,id):
     
     return render(request, "contact.html", {})
+
 @login_required
 def company(request,id):
     
     return render(request, "company.html", {})
+
+@login_required
+def databaseView(request,id):
+    
+    return render(request, "databaseView.html", {})
+
 @login_required
 def property(request,id):
     
     return render(request, "property.html", {})
+
 @login_required
 def project(request,id):
-
     return render(request, "project.html", {})
 
 def signin(request):
-    
     if request.user.is_active:
         return redirect("index")
         
     return render(request, "signin.html", {})
 
-def register(request):
-    
+def register(request):    
     if request.user.is_active:
         return redirect("index")
         
     return render(request, "register.html", {})
+
 @login_required
 def createDb(request):
 

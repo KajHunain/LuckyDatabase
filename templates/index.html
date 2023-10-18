@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<nav class="navbar navbar-expand-lg navbar-light content-navabr">
+  <div class="container-fluid">
+    <h4 class="Logo">Kaj Consultancy</h4>
+</nav>
+
+
+<div class="Dashboard-cards">
+  <div class="row Dashboard-content">
+    <div class=" col row " >
+    <div class="col  dash-box">
+      <div class="card-body">
+        <div class="num-icon">
+          <span class="">501</span>
+          <span class=""><i class="fi-xwluhl-address-card-solid"></i></span>
+        </div>
+        <div class="card-title">
+          <span>Active</span>
+        </div>
+      </div>
+    </div>
+    <div class="col dash-box">
+      <div class="card-body">
+        <div class="num-icon">
+          <span class="">394</span>
+          <span class=""><i class="fi-xtsuxl-database-solid"></i></span>
+        </div>
+        <div class="card-title">
+          <span>Database</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class=" col row">
+    <div class="col dash-box">
+      <div class="card-body">
+        <div class="num-icon">
+          <span class="">47</span>
+          <span class=""><i class="fi-cnluxl-circle-notch"></i></span>
+        </div>
+        <div class="card-title">
+          <span>Projects</span>
+        </div>
+      </div>
+    </div>
+    <div class="col dash-box">
+      <div class="card-body">
+        <div class="num-icon">
+          <span class="">150</span>
+          <span class=""><i class="fi-xnsrxl-phone-solid"></i></span>
+        </div>
+        <div class="card-title">
+          <span>contacts</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+
+  <div class="add-data-box">
+    <div class="card ">
+      <div class="card-body">
+        <div class="text-center">
+          <div class="card-title">A Database</div>
+          <button class="btn card-btn">Add</button>
+        </div>
+        <div class="data-icon">
+          <span><i class="fi-xnsuxl-data-structure-solid"></i></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+{% endblock %}
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="{% static 'js/jquery.js'%}"></script>
+<script src="{% static 'js/index.js'%}">

@@ -67,7 +67,6 @@ $(document).ready(function(){
           var col3 = $('<div>').addClass('col-sm-3 text-secondary');
           col3.append($('<button>').addClass('btn btn-outline-info delete_btn').text('Delete')); // Create the "Delete" button
 
-
           newRow.append(col1, col2, col3);
 
           otherdb.append(newRow);
@@ -76,7 +75,7 @@ $(document).ready(function(){
         }
 
       }
-       
+      
     },
     error: function(xhr, status, error) {
 

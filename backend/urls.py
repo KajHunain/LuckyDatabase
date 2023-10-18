@@ -19,6 +19,8 @@ urlpatterns = [
     path('signin',views.signin, name='signin'),
     path('register',views.register, name='register'),
     path('createdb',views.createDb, name='createdb'),
+    path('base',views.baseview, name='base'),
+    path('database/<int:id>',views.databaseView, name='database'),
 
     # path('api/', include(router.urls)),
     path('api/index/', views.IndexViewApi.as_view(), name='apiindex'),

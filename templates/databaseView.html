@@ -1,0 +1,132 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+
+
+
+
+<!-- <link rel="stylesheet" href="{% static 'css/table.css' %}"> -->
+
+
+<nav class="navbar navbar-expand-lg navbar-light content-navabr">
+    <div class="container-fluid">
+        <span class="arrow-icon">
+            <a id="arricon" href="/template/jobs.html">
+                <i class="fa-solid fa-arrow-left" style="font-weight: 900;"></i></a>
+        </span>
+        <h3 class="Logo">Kaj Consultancy</h3>
+        <button class="btn d-inline-block d-lg-none table-nav" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+            aria-label="Toggle navigation">
+            <i class="fa fa-bars fa-lg"></i>
+        </button>
+<div class="collapse navbar-collapse"  id="navbarSupportedContent">
+    <div class="navbar-collapse">
+
+        <ul class="nav navbar-nav ml-auto">
+            <li class="nav-item">
+                <a href="#">Contact Us</a>
+            </li>
+            <li class="nav-item">
+                <a href="#">Review</a>
+            </li>
+            <li class="nav-item">
+                <a href="#">Help</a>
+            </li>
+            <!-- <div class="nav-share nav-item">
+                <a data-toggle="dropdown" class="dropdown-link" aria-haspopup="true"
+                    aria-expanded="false">Share</a>
+                <ol class="dropdown-menu">
+                </ol>
+            </div> -->
+        </ul>
+    </div>
+    <div class="navbar-collapse justify-content-end">
+        <div class="nav-share">
+            <a href="#" data-toggle="dropdown" class="dropdown-link" aria-haspopup="true"
+                aria-expanded="false">Share</a>
+            <ol class="dropdown-menu">
+            </ol>
+        </div>
+        <ol class="shared_with" id="shared_with">
+            <li class="invite-icon">A</li>
+            <li class="invite-icon">B</li>
+            <li class="invite-icon">C</li>
+            <li class="invite-icon">C</li>
+            <li class="invite-icon">C</li>
+            <li class="invite-icon">C</li>
+            <li class="invite-icon" data-toggle="dropdown" class="dropdown-link nav-link" aria-haspopup="true"
+                aria-expanded="false"></li>
+        </ol>
+    </div>
+</div>
+
+    </div>
+</nav>
+
+
+<!-- collapse navbar-collapse -->
+
+
+
+
+<div class="content-div">
+    <nav class="navbar">
+        <div class="container-fluid">
+            <div class="content-searchBar">
+                <input class="content-input" type="search" placeholder="Search" aria-label="Search">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </div>
+            <a href="#" class="times-wide"><i class="fi-cwsuxl-times-wide"></i></i>
+            </a>
+        </div>
+    </nav>
+    <hr>
+    <div class="slidetable-div" style="overflow: auto; ">
+        <table class="TaBle">
+            <thead class="tablehead">
+                <tr>
+                    <th></th>
+                    <th>Applicants</th>
+                    <th>Qualification</th>
+                    <th>Fields</th>
+                    <th>Matche</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody class="Slidetable-body">
+                <tr>
+                    <td id="checkbox"><input type="checkbox"></td>
+                    <td scope="row" class="job">Qasim Ali shah</td>
+                    <td>Bachelor</td>
+                    <td>Software Engineering</td>
+                    <td>5 Star</td>
+                    <td class="last-col"><a><i class="fa-solid fa-xmark"></i></a><a><i
+                                class="fa-solid fa-check"></i></a>
+                    </td>
+                </tr>
+                <tr>
+                    <td id="checkbox"><input type="checkbox"></td>
+                    <td scope="row" class="job">Qasim Ali shah</td>
+                    <td>Bachelor</td>
+                    <td>Software Engineering</td>
+                    <td>5 Star</td>
+                    <td class="last-col"><a><i class="fa-solid fa-xmark"></i></a><a><i
+                                class="fa-solid fa-check"></i></a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div><a href="#" class="cal-icon"><i class="fa-solid fa-calculator"></i></a></div>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="{% static 'js/contact.js'%}">
+
+    {% endblock %}
