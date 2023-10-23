@@ -1,0 +1,171 @@
+
+.content-navabr {
+    background-color: rgba(21, 29, 46, 0.5);
+    backdrop-filter: blur(30px);
+    margin: 0px 10px;
+    border-radius: 5px;
+}
+
+.content-navabr .container-fluid {
+    padding: 8px;
+}
+
+
+.content-navabr .Logo {
+    color: #fff;
+    padding: 8px 0px 0px 10px;
+    font-size: 20px;
+    transition: all 0.5s;
+    cursor: pointer;
+}
+
+.content-navabr .Logo:hover {
+    color: #904b96;
+}
+
+.Dashboard-content {
+    padding: 0px 25px;
+}
+
+.Dashboard-cards {
+    margin: 3rem 0rem;
+}
+
+.Dashboard-content .dash-box {     
+    background-color: rgba(225, 225, 255, 0.1);;
+    backdrop-filter: blur(30px);
+    color: #fff;
+    border-radius: 12px;
+    padding: 20px 15px;
+    margin: 0px 22px;
+}
+
+.Dashboard-content .col-md-3 {
+    width: 20%;
+}
+
+.dash-box .num-icon {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.num-icon span {
+    font-size: 1.5rem;
+    font-weight: 500;
+    margin: 10px;
+}
+
+.card-body .card-title {
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-top: 18px;
+}
+
+.add-data-box {
+    display: flex;
+    justify-content: flex-end;
+    margin: 20px 0px;
+    margin-right: 60px;
+}
+
+
+.add-data-box .card-body {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.add-data-box .card-title {
+    font-size: 1.7rem;
+}
+
+.card-body .card-btn {
+    color: #fff;
+    outline: none;
+    border: 1px solid;
+    font-size: 20px;
+    font-weight: 600;
+    padding: 5px 35px;
+    margin-top: 10px;
+    transition: all 0.3s;
+}
+
+.card-body .card-btn:hover {
+    background-color: #161d2d;
+    color: #fff;
+    box-shadow: 1px 1px 10px #011039;
+}
+
+.add-data-box .data-icon {
+    font-size: 45px;
+}
+
+.add-data-box .card-body {
+    padding: 20px 15px;
+}
+
+.add-data-box .card {
+    border-radius: 12px;
+    width: 20rem;
+    background-color: rgba(225, 225, 225, 0.1);
+    backdrop-filter: blur(30px);
+    color: #fff;
+}
+
+.row {
+    margin-left: 0px !important;
+    margin-right: 0px !important;
+}
+
+
+
+
+
+
+
+
+@media (max-width: 991px) {
+    .Dashboard-content .row {
+        justify-content: center;
+        gap: 10px;
+    }
+}
+
+@media (max-width: 576px) {
+    .Dashboard-content {
+        justify-content: center;
+        padding: 0px;
+    }
+
+    .Dashboard-content .dash-box {
+        width: 70%;
+    }
+
+    .add-data-box {
+        display: flex;
+        justify-content: center;
+        margin: 20px 0px;
+        margin-right: 10px;
+    }
+
+    .Dashboard-content .dash-box {
+        border-radius: 10px;
+        padding: 5px;
+        margin: 0px;
+    }
+
+    .add-data-box .card {
+        width: 18rem;
+    }
+}
+
+@media (max-width: 599.8px) {
+    .content-navabr .Logo {
+        color: #fff;
+        padding: 8px 0px 0px 10px;
+        font-size: 18px;
+        font-weight: 400;
+        transition: all 0.5s;
+        cursor: pointer;
+    }
+}

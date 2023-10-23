@@ -13,7 +13,7 @@ with open(os.path.join(BASE_DIR, 'secrets.json')) as secrets_file:
 DEBUG = True
 # PublicIPs: 3.21.57.117    PrivateIPs: 172.31.17.92
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["192.168.0.106","192.168.0.192"]
 
 # Application definition
 

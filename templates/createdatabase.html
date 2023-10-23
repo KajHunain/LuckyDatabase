@@ -4,39 +4,60 @@
 
 {% block content %}
 
+
+<link rel="stylesheet" href="{% static 'css/createdatabase.css' %}">
+
 <nav class="navbar navbar-expand-lg navbar-light content-navabr">
   <div class="container-fluid">
     <span class="arrow-icon">
-        <a id="arricon" href="/template/jobs.html">
-            <i class="fa-solid fa-arrow-left" style="font-weight: 900;"></i></a>
-    </span>
-    <h3 class="Logo">Kaj Consultancy</h3>
+      <a id="arricon" href="/template/jobs.html">
+          <i class="fa-solid fa-arrow-left" style="font-weight: 900;"></i></a>
+  </span>
+  <h3 class="Logo">Kaj Consultancy</h3>
 </nav>
 
-<div class="row"> 
-<form class="col-6">
-  <div class="row">
-    <span class="col">Database Creator:</span>
+<div class="row p-5"> 
+<form class="col-md-6">
+  <div class="row p-3 database-creator">
+    <span class="col">Database Creator :</span>
+    <span class="col">UserName</span>
   </div>
-  <div>
-    <input type="">
+  <label class="input-title">Database Title</label>
+  <div class="form-floating mb-3">
+    <input type="text" class="form-control" id="floatingInput" placeholder="Mobile App">
+    <label for="floatingInput">Mobile App</label>
+  </div>
+  <label class="input-title">Add Editor to the database</label>
+  <div class="form-floating mb-3">
+    <input type="text" class="form-control" id="floatingInput" placeholder="Username">
+    <label for="floatingInput">Username</label>
+  </div>
+  <label class="input-title">Add Viewer to the Database</label>
+  <div class="form-floating mb-3">
+    <input type="text" class="form-control" id="floatingInput" placeholder="UserName">
+    <label for="floatingInput">Username</label>
+  </div>
+  <div class="d-grid gap-2">
+      <button class="btn" type="button">Create</button>
   </div>
 </form>
-<div class="col-6">
-  
+<div class="col-md-6">
+  <div class="card">
+    <div class="card-body bg">
+      <p class="card-text">Four Default Tables will be created along with the Database</p>
+      <ul >
+        <li>Company</li>
+        <li>Contact</li>
+        <li>Project</li>
+        <li>Property</li>
+      </ul>
+      </div>
+    <div class="blob"></div>
+  </div>
 </div>
 </div>
 
 
-
-
-
-
-
- <!-- <div class="form-floating ">
-      <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
-      <label for="floatingInput">Email address</label>
-    </div>  -->
 
 
 {% endblock %}

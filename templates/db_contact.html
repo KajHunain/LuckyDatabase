@@ -1,0 +1,220 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+
+
+
+
+<link rel="stylesheet" href="{% static 'css/databaseView.css' %}">
+
+
+<nav class="navbar navbar-expand-lg navbar-light content-navabr">
+    <div class="container-fluid">
+        <span class="arrow-icon">
+            <a id="arricon" href="/template/jobs.html">
+                <i class="fa-solid fa-arrow-left" style="font-weight: 900;"></i></a>
+        </span>
+        <h3 class="Logo">Kaj Consultancy</h3>
+        <button class="btn d-inline-block d-lg-none table-nav" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+            aria-label="Toggle navigation">
+            <i class="fa fa-bars fa-lg"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <div class="navbar-collapse">
+
+                <ul class="nav navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a href="/contacts">Contacts</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/company">Company</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/project">Project</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-collapse justify-content-end">
+                <div class="nav-share">
+                    <a href="#" data-toggle="dropdown" class="dropdown-link" aria-haspopup="true"
+                        aria-expanded="false">Share</a>
+                    <ol class="dropdown-menu">
+                    </ol>
+                </div>
+                <ol class="shared_with" id="shared_with">
+                    <li class="invite-icon">A</li>
+                    <li class="invite-icon">B</li>
+                    <li class="invite-icon">C</li>
+                    <li class="invite-icon">C</li>
+                    <li class="invite-icon">C</li>
+                    <li class="invite-icon">C</li>
+                    <li class="invite-icon" data-toggle="dropdown" class="dropdown-link nav-link" aria-haspopup="true"
+                        aria-expanded="false"></li>
+                </ol>
+            </div>
+        </div>
+
+    </div>
+</nav>
+
+
+<!-- collapse navbar-collapse -->
+
+
+
+
+<div class="content-div">
+    <nav class="navbar">
+        <div class="container-fluid">
+            <div class="content-searchBar">
+                <input class="content-input" type="search" placeholder="Search" aria-label="Search">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </div>
+            <a href="#" class="times-wide"><i class="fi-cwsuxl-times-wide"></i></i>
+            </a>
+        </div>
+    </nav>
+    <hr>
+    <div class="slidetable-div" style="overflow: auto; ">
+        <table class="TaBle">
+            <thead class="tablehead">
+                <tr>
+                    <th class="dlt"></th>
+                    <th class="col">Firstname</th>
+                    <th class="col">Lastname</th>
+                    <th class="col">Mobile</th>
+                    <th class="col">Mobile2</th>
+                    <th class="col">Fax</th>
+                    <th class="col">Email</th>
+                    <th class="col">Personal Address</th>
+                    <th class="col">Rating</th>
+                    <th class="col">City</th>
+                    <th class="col">State</th>
+                    <th class="col">Country</th>
+                    <th class="col">Postal Code</th>
+                    <th class="col">Company Address</th>
+                    <th class="col">Company</th>
+                    <th class="col">Designation</th>
+                    <th class="col">Work Phone</th>
+                    <th class="col">Category</th>
+                    <th class="col">Date of Birth</th>
+                    <th class="col">Group</th>
+                    <th class="col">Notes</th>
+
+                </tr>
+            </thead>
+            <tbody class="Slidetable-body">
+                <tr>
+                    <td id="checkbox"><input type="checkbox"></td>
+                    <td scope="row" class="job">Qasim Ali shah</td>
+                    <td>Bachelor</td>
+                    <td>Software Engineering</td>
+                    <td>Software Engineering</td>
+                    <td>Software Engineering</td>
+                    <td>Software Engineering</td>
+                    <td>Software Engineering</td>
+                    <td>Software Engineering</td>
+                    <td>Software Engineering</td>
+                    <td>Software Engineering</td>
+                    <td>Software Engineering</td>
+                    <td>Software Engineering</td>
+                    <td>Software Engineering</td>
+                    <td>Software Engineering</td>
+                    <td>Software Engineering</td>
+                    <td>Software Engineering</td>
+                    <td>Software Engineering</td>
+                    <td>Software Engineering</td>
+                    <td>Software Engineering</td>
+                    <td>Software Engineering</td>
+                    <td>5 Star</td>
+                    <td class="last-col"><a><i class="fa-solid fa-xmark"></i></a><a><i
+                                class="fa-solid fa-check"></i></a>
+                    </td>
+                </tr>
+                <tr>
+                    <td id="checkbox"><input type="checkbox"></td>
+                    <td scope="row" class="job">Qasim Ali shah</td>
+                    <td>Bachelor</td>
+                    <td>Software Engineering</td>
+                    <td>Software Engineering</td>
+                    <td>Software Engineering</td>
+                    <td>Software Engineering</td>
+                    <td>Software Engineering</td>
+                    <td>Software Engineering</td>
+                    <td>Software Engineering</td>
+                    <td>Software Engineering</td>
+                    <td>Software Engineering</td>
+                    <td>Software Engineering</td>
+                    <td>Software Engineering</td>
+                    <td>Software Engineering</td>
+                    <td>Software Engineering</td>
+                    <td>Software Engineering</td>
+                    <td>Software Engineering</td>
+                    <td>Software Engineering</td>
+                    <td>Software Engineering</td>
+                    <td>Software Engineering</td>
+                    <td>5 Star</td>
+                    <td class="last-col"><a><i class="fa-solid fa-xmark"></i></a><a><i
+                                class="fa-solid fa-check"></i></a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div id="mydiv">
+        <div id="mydivheader">
+            <i class="fi-xnsuxl-move-solid"></i><h5>Calculater</h5>
+            <span id="close-calculator"><i class="fi-xnluxl-times"></i></span>
+        </div>
+        <div class="calc-input" id="calc-display">
+            <input type="text" readonly>
+        </div>
+        <div class="calc-button">
+            <div class="row">
+                <button class="col" data-value="AC">AC</button>
+                <button class="col" data-value="+/-">+/-</button>
+                <button class="col" data-value="%">%</button>
+                <button class="col" data-value="/">/</button>
+            </div>
+            <div class="row">
+                <button class="col" data-value="7">7</button>
+                <button class="col" data-value="8">8</button>
+                <button class="col" data-value="9">9</button>
+                <button class="col" data-value="*">*</button>
+            </div>
+            <div class="row">
+                <button class="col" data-value="4">4</button>
+                <button class="col" data-value="5">5</button>
+                <button class="col" data-value="6">6</button>
+                <button class="col" data-value="-">-</button>
+            </div>
+            <div class="row">
+                <button class="col" data-value="1">1</button>
+                <button class="col" data-value="2">2</button>
+                <button class="col" data-value="3">3</button>
+                <button class="col" data-value="+">+</button>
+            </div>
+            <div class="row">
+                <button class="col-6" data-value="0">0</button>
+                <button class="col" data-value=".">.</button>
+                <button class="col" data-value="=">=</button>
+            </div>
+    </div>
+    </div>
+
+
+<div><a href="#" class="cal-icon" id="cal-icon"><i class="fa-solid fa-calculator"></i></a></div>
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="{% static 'js/contact.js' %}"></script>
+
+{% endblock %}
+
+
+

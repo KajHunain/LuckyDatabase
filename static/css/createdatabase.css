@@ -1,0 +1,157 @@
+.content-navabr {
+    background-color: rgb(21, 29, 46);
+    margin: 0px 10px;
+    border-radius: 5px;
+}
+
+.content-navabr .container-fluid {
+    padding: 8px;
+}
+
+.content-navabr {
+    background-color: rgba(21, 29, 46, 0.5);
+    backdrop-filter: blur(30px);
+    margin: 0px 10px;
+    border-radius: 5px;
+}
+
+.content-navabr .container-fluid {
+    padding: 8px;
+    justify-content: left;
+}
+
+.arrow-icon {
+    background-color: #fff;
+    text-align: center;
+    border-radius: 50px;
+    margin-left: 5px;
+}
+
+.arrow-icon i {
+    font-weight: bold;
+    font-size: 15px;
+    padding: 0px 5px;
+    color: #161d2e;
+}
+
+.content-navabr .Logo {
+    color: #fff;
+    padding: 8px 0px 0px 10px;
+    font-size: 20px;
+    transition: all 0.5s;
+    cursor: pointer;
+}
+
+.content-navabr .Logo:hover {
+    color: #904b96;
+}
+.database-creator .col{
+    color: #fff;
+}
+.input-title{
+    color: #fff;
+    font-size: 15px;
+    margin-bottom: 0px;
+}
+.form-floating .form-control{
+    padding: 10px;
+    background-color: rgba(225, 225, 225, 0.9);
+    /* opacity: 0.3; */
+    color: #161d2e;
+    cursor: pointer;
+}
+.form-floating .form-control label{
+    color: #fff !important;
+    background-color: transparent;
+}
+.d-grid .btn{
+    background-color: rgba(21, 29, 46, 0.5);
+    color: white;
+    border: none;
+    transition: all 0.4s;
+}
+/* .card{
+    background-color: #161d2e;
+    color: #fff;
+    margin: 30px;
+} */
+.card {
+    position: relative;
+    float: right;
+    width: 350px;
+    height: 250px;
+    border-radius: 14px;
+    backdrop-filter: blur(50px);
+    background-color: rgba(225, 225, 225, 0.1);
+    padding: 8px;
+    color: #fff;
+    z-index: 1111;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    /* box-shadow: 3px 3px 10px #bebebe, -3px -3px 10px #ffffff; */
+    ;
+  }
+  
+  .bg {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    width: 350px;
+    height: 250px;
+    z-index: 2;
+    backdrop-filter: blur(30px);
+    background-color: rgba(225, 225, 225, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+    outline: 2px solid transparent;
+  }
+  
+   .blob {
+    position: absolute;
+    z-index: 0;
+    top: 70%;
+    left: 70%;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    background-color: #904b96;
+    opacity: 1;
+    /* filter: blur(12px); */
+    animation: blob-bounce 5s infinite ease;
+  } 
+  
+  @keyframes blob-bounce {
+    0% {
+      transform: translate(-100%, -100%) translate3d(0, 0, 0);
+    }
+  
+    25% {
+      transform: translate(-100%, -100%) translate3d(100%, 0, 0);
+    }
+  
+    50% {
+      transform: translate(-100%, -100%) translate3d(100%, 100%, 0);
+    }
+  
+    75% {
+      transform: translate(-100%, -100%) translate3d(0, 100%, 0);
+    }
+  
+    100% {
+      transform: translate(-100%, -100%) translate3d(0, 0, 0);
+    }
+  }
+  
+@media (max-width: 599.8px) {
+    .content-navabr .Logo {
+        color: #fff;
+        padding: 8px 0px 0px 10px;
+        font-size: 18px;
+        font-weight: 400;
+        transition: all 0.5s;
+        cursor: pointer;
+    }
+}

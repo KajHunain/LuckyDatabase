@@ -21,6 +21,9 @@ urlpatterns = [
     path('createdb',views.createDb, name='createdb'),
     path('base',views.baseview, name='base'),
     path('database/<int:id>',views.databaseView, name='database'),
+    path('contact/<int:id>',views.contactView, name='contact'),
+    path('company/<int:id>',views.companyView, name='company'),
+    path('project/<int:id>',views.projectView, name='project'),
 
     # path('api/', include(router.urls)),
     path('api/index/', views.IndexViewApi.as_view(), name='apiindex'),

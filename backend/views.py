@@ -51,6 +51,17 @@ def property(request,id):
 def project(request,id):
     return render(request, "project.html", {})
 
+
+def contactView(request,id):
+    return render(request, "db_contact.html", {})
+
+def companyView(request,id):
+    return render(request, "db_company.html", {})
+
+def projectView(request,id):
+    return render(request, "db_project.html", {})
+
+
 def signin(request):
     if request.user.is_active:
         return redirect("index")

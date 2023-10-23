@@ -9,10 +9,9 @@
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;700family=Roboto:wght@400;500;700display=swap"
-        rel="stylesheet">
-
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@500;700&display=swap" rel="stylesheet">
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -21,45 +20,21 @@
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <title>Lucky Database</title>
     <link rel="icon" type="image/x-icon" href="{% static 'images/favicon.ico'%}">
-    
+
 </head>
 
 <body>
-    
-    <div class="section ">
-        <div class="top_navbar navbar navbar-expand-lg justify-content-between">
-            <div class="hamburger">
-                <a href="#">
-                    <i class="fas fa-bars" id="h1"></i>
-                </a>
-                <div class="nav-searchBar">
-                    <input class="nav-input" type="search" placeholder="Search" aria-label="Search">
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                </div>
-            </div>
-            
-            <div class="profile">
-                <a href="#" data-toggle="dropdown" class="dropdown-link nav-link" aria-haspopup="true"
-                    aria-expanded="false">
-                    Useremail<i class="fa-solid fa-caret-down ms-1"></i>
-                </a>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" href="../createdb">Create DB</a>
-                    <a class="dropdown-item" href="#">Log Out</a>
-                </div>
-    
-            </div>
-        </div>
-    </div>
+
+
     <div class="wrapper">
 
         <div class="sidebar">
             <div class="sidebar_top">
                 <div class="min_side">
-                    <span class="app-icon" id="pagename">Lucky Database</span>
                     <a href="#">
                         <i class="fas fa-bars" id="h2"></i>
                     </a>
+                    <span class="app-icon" id="pagename">Lucky Database</span>
                 </div>
 
             </div>
@@ -85,10 +60,90 @@
         </div>
     </div>
     <div class="main">
+        <div class="section ">
+            <div class="top_navbar navbar navbar-expand-lg justify-content-between">
+                <div class="hamburger">
+                    <a href="#">
+                        <i class="fas fa-bars" id="h1"></i>
+                    </a>
+                    <div class="nav-searchBar">
+                        <input class="nav-input" type="search" placeholder="Search" aria-label="Search">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </div>
+                </div>
+
+                <div class="profile">
+                    <a href="#" data-toggle="dropdown" class="dropdown-link nav-link" aria-haspopup="true"
+                        aria-expanded="false">
+                        Useremail<i class="fa-solid fa-caret-down ms-1"></i>
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" href="../createdb">Create DB</a>
+                        <a class="dropdown-item" href="#">Log Out</a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
         {% block content %}
         {% endblock %}
-
     </div>
+
+
+    <section class="slide_box" id="slide_box">
+        <div class="closing_box" id="closing_box">
+            <i class="fi-cwluxl-times-wide"></i><span>Contact</span>
+        </div>
+
+        <div class="slide_box_cotent">
+            <nav class="slide_box_title">
+                <span>Softwebcode</span>
+            </nav>
+            <div class="row">
+                <form class="col">
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="floatingInput" placeholder="Mobile App">
+                        <label for="floatingInput">Company Name</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="floatingInput" placeholder="Username">
+                        <label for="floatingInput">DBA</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="floatingInput" placeholder="UserName">
+                        <label for="floatingInput">Email</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="floatingInput" placeholder="UserName">
+                        <label for="floatingInput">Phone</label>
+                    </div>
+                </form>
+                <form class="col">
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="floatingInput" placeholder="Mobile App">
+                        <label for="floatingInput">Mobile App</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="floatingInput" placeholder="Username">
+                        <label for="floatingInput">Username</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="floatingInput" placeholder="UserName">
+                        <label for="floatingInput">Username</label>
+                    </div>
+                </form>
+            </div>
+            <div class="row slide_box_btn">
+                <button class="col">Create</button>
+                <button class="col">Update</button>
+            </div>
+        </div>
+    </section>
+
+
+
+
+
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
         integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
         crossorigin="anonymous"></script>

@@ -29,8 +29,187 @@ $(document).ready(function() {
       console.log(shared[shared.length-1]);
   }
   
-  
-  
+  $("#cal-icon").click(function() {
+    $("#cal-icon").hide()
+    $("#mydiv").show()
+  });
+
+  $("#close-calculator").click(function(){
+    $("#cal-icon").show()
+    $("#mydiv").hide()
+
+  })
+
+
+  dragElement($("#mydiv"));
+  function dragElement(elmnt) {
+      var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+
+      if (elmnt.find("#mydivheader").length > 0) {
+          /* If present, the header is where you move the DIV from: */
+          elmnt.find("#mydivheader").on("mousedown", dragMouseDown);
+      } else {
+          /* Otherwise, move the DIV from anywhere inside the DIV: */
+          elmnt.on("mousedown", dragMouseDown);
+      }
+
+      function dragMouseDown(e) {
+          e = e || window.event;
+          e.preventDefault();
+          // Get the mouse cursor position at startup:
+          pos3 = e.clientX;
+          pos4 = e.clientY;
+          $(document).on("mouseup", closeDragElement);
+          // Call a function whenever the cursor moves:
+          $(document).on("mousemove", elementDrag);
+      }
+
+      function elementDrag(e) {
+          e = e || window.event;
+          e.preventDefault();
+          console.log("pose3"+ pos3);
+          console.log("e-x: "+e.clientX)
+          // Calculate the new cursor position:
+          pos1 = pos3 - e.clientX;
+          pos2 = pos4 - e.clientY;
+          pos3 = e.clientX;
+          pos4 = e.clientY;
+          // Set the element's new position:
+          // elmnt.css("top", (elmnt.position().top + pos2) + "px");
+          // elmnt.css("left", (elmnt.position().left + pos1) + "px");
+          elmnt.css("bottom", (parseInt(elmnt.css("bottom")) + pos2) + "px");
+          elmnt.css("right", (parseInt(elmnt.css("right")) + pos1) + "px");
+      }
+
+      function closeDragElement() {
+          /* Stop moving when the mouse button is released: */
+          $(document).off("mouseup");
+          $(document).off("mousemove");
+      }
+  }
+
+
+
+
+
+
+
+  var  currentInput = "";
+  var  currentResult = 0;
+  var  currentOperator = null;
+  var  display = $('#calc-display input');
+
+  function updateDisplay() {
+      display.val(currentInput);
+  }
+
+  function appendToDisplay(character) {
+      currentInput += character;
+      updateDisplay();
+  }
+
+  function clearDisplay() {
+      currentInput = "";
+      updateDisplay();
+  }
+
+  function toggleSign() {
+      if (currentInput !== "") {
+          currentInput = String(-parseFloat(currentInput));
+          updateDisplay();
+      }
+  }
+
+  function calculateResult() {
+      if (currentOperator && currentInput !== "") {
+          const num = parseFloat(currentInput);
+          switch (currentOperator) {
+              case '+':
+                  currentResult += num;
+                  break;
+              case '-':
+                  currentResult -= num;
+                  break;
+              case '*':
+                  currentResult *= num;
+                  break;
+              case '/':
+                  currentResult /= num;
+                  break;
+              case '%':
+                  currentResult = currentResult % num;
+                  break;
+              default:
+                  currentResult = num;
+          }
+          currentInput = currentResult.toString();
+          currentOperator = null;
+          updateDisplay();
+      }
+  }
+
+  $('.calc-button button').on('click', function () {
+      const buttonText = $(this).data('value');
+      if (!isNaN(parseFloat(buttonText)) || buttonText === '.') {
+          appendToDisplay(buttonText);
+      } else if (buttonText === '=') {
+          calculateResult();
+      } else {
+          currentOperator = buttonText;
+          if (currentInput !== "") {
+              currentResult = parseFloat(currentInput);
+              currentInput = "";
+              updateDisplay();
+          }
+      }
+  });
+
+  $('#close-calculator').on('click', function () {
+      $('#mydiv').css('display', 'none');
+  });
+
+  $('#mydiv').on('click', function (event) {
+      if (event.target === this) {
+          clearDisplay();
+          currentResult = 0;
+          currentOperator = null;
+      }
+  });
+
+
+
+
+
+
+  $(window).on('scroll', function() {
+    var scrollPosition = $(this).scrollTop();
+    var sidebar = $('.sidebar-container');
+
+    if (scrollPosition > 0) {
+        sidebar.css('top', '0');
+    } else {
+        sidebar.css('top', '0'); // Adjust this value if you want some space from the top
+    }
+});
+
+
+
+
+
+  $("#closing_box i").click(function(){
+    $("#slide_box").css(
+        'right' , '-85%'
+    )
+  })
+
+  $(".job").click(function(){
+    $("#slide_box").css(
+        'right' , '0'
+    )
+  })
+
+
+
   // var element = document.querySelector('.shared_with a[href="#"]'); // Select the <a> element within the '.shared_with' element with the href attribute set to "#"
 
   // if (element) {
